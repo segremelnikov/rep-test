@@ -282,9 +282,6 @@ def savesettings(request):
 
 def saveitem(request): 
 
-    logger.error("saving item")
-
-
     if request.method == "GET":
         raise Http404("URL doesn't exists")
    
@@ -304,7 +301,6 @@ def saveitem(request):
     page.cur_item = item
     page.save()
 
-    #logger.error("saving " + str(item))
     return HttpResponse(status=204)
 
 
