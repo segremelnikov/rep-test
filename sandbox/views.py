@@ -47,7 +47,6 @@ def txt(fb):
    return response
 
 def calc_cla(df, tdfa, idx, nc): 
-    logger.error("calc cla")
     mlb = []
     model1 = KMeans(init='k-means++', n_clusters=nc)
     model1.fit(df) 
@@ -207,9 +206,6 @@ def create_analysis(df, nf, clm, idx, df100, badclmnsbeen, badi=False, id=73):
 
     fa.fit(df)
     idxf  = ["f1", "f2", "f3", "f4", "f5", "f6", 'f7', 'f8'][:nf] 
-
-    logger.error("create an")
-
     
     scaler = MinMaxScaler(feature_range=(-100,100))
 
@@ -251,8 +247,6 @@ def create_analysis(df, nf, clm, idx, df100, badclmnsbeen, badi=False, id=73):
 
         f_r_max = sorted(filter(lambda x: x[0] > 30, f_r), key=lambda x: -x[0])
         f_r_min = sorted(filter(lambda x: x[0] < -30, f_r), key=lambda x: x[0])
-
-        logger.error(str(i) + " fs : " + str(len(f_s_max)) + ", " + str(len(f_s_min)) + " ... fr : " + str(len(f_r_max)) + ", " + str(len(f_r_min)))
 
         if len(f_s_min) > len(f_s_max) or (len(f_s_min) == len(f_s_max) and (len(f_r_min) > len(f_r_max))):
             dffa[dffa.columns[i]] = dffa[dffa.columns[i]].apply(lambda x: x*-1)
@@ -400,7 +394,6 @@ def show_ans(request,id=73):
     answers = u.answer_set.all()
 
     an = "<br>"
-
     for aa in answers:
         an += aa.q + ": " + aa.a + "<br>"
 
@@ -410,8 +403,6 @@ def show_ans(request,id=73):
 
 def calculate_df(id):
 
-
-    logger.error("calc df") 
 
     u = User.objects.get(id=id)
     items = u.item_set.all()
