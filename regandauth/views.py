@@ -13,8 +13,6 @@ import threading
 
 def register(request):
 
-    logger.error(threading.active_count() )
-
     if request.user.is_authenticated:
         return redirect("/")
 
