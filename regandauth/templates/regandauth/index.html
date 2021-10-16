@@ -1,0 +1,1320 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<!-- Basic -->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<!-- Mobile Metas -->
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!-- Site Metas -->
+	<title>Реп-тест Келли - вход/регистрация</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Site Icons -->
+	<link rel="shortcut icon" href="{% static 'imageslg/favicon.ico' %}" type="image/x-icon">
+	<link rel="apple-touch-icon" href="{% static 'imageslg/apple-touch-icon.png' %}">
+
+	<!-- Bootstrap CSS -->
+	<link href="{% static 'csslg/bootstrap.min.css' %}" rel="stylesheet">
+	<!-- Site CSS -->
+	<link rel="stylesheet" href="{% static 'csslg/style.css' %}">
+	<!-- Fontawesome CSS -->
+	<link rel="stylesheet" href="{% static 'csslg/all.min.css' %}">
+	<!-- Responsive CSS -->
+	<link rel="stylesheet" href="{% static 'csslg/responsive.css' %}">
+
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+	<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+	(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+	m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+	(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+ 
+	ym(76866115, "init", {
+		 clickmap:true,
+		 trackLinks:true,
+		 accurateTrackBounce:true,
+		 webvisor:true
+	});
+ </script>
+ <noscript><div><img src="https://mc.yandex.ru/watch/76866115" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+ <!-- /Yandex.Metrika counter -->
+
+	<style>
+		.mb::-webkit-input-placeholder {
+			font-size: 1.3vmax;
+		}
+
+		.mb::-moz-placeholder {
+			font-size: 1.3vmax;
+		}
+
+		p {
+			text-indent: 20px;
+			/* Отступ первой строки в пикселах */
+		}
+	</style>
+</head>
+
+<body>
+	<div id="particles-js" class="main-form-box">
+		<div id="f1" class="md-form">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 offset-md-3">
+						<div id="fff2" class="panel panel-login">
+							
+							<div id="pnlh" class="panel-heading">
+								<button id="showbtn" type="button" class="btn btn-info" data-toggle="collapse"
+									data-target="#demo"><img id="logoimg" src="{% static 'imageslg/logo.png' %}"
+										alt="" /><br>&nbsp;&nbsp;Показать описание</button>
+								<div id="demo" class="collapse" >
+									<div class="azz" style="margin-top: 10px;">
+										<h1 style = "text-align: center;">Тест репертуарных решеток</h1>
+										<p>Если большинство тестов
+											разработаны исходя из определенной схемы устройства
+											личности человека и измеряют различные характеристики, относящиеся к этой
+											схеме,
+											то реп-тест Келли скорее стремится выяснить, какая схема "человека" присуща
+											самому испытуемому.</p>
+										<p>Тест состоит из двух этапов, первый из которых -
+											составление списка
+											людей, которые представляют
+											"репрезентативную выборку" людей для испытуемого - людей, которые ему
+											нравятся
+											и не нравятся, важны и не важны для него, относятся к разным социальным
+											категориям и
+											т.д. Затем
+											испытуемому предлагается сравнить пары или тройки людей и выделить качества,
+											по которым
+											они схожи/отличаются, а затем оценить по этим качествам всех остальных
+											людей. После
+											проведения всех оценок проводится их статистический анализ, в результате
+											которого выделяются
+											с одной стороны группы людей, имеющих схожие оценки, а с другой - группы
+											качеств, по которым
+											люди оцениваются похожим образом. Предполагается, что эти "сгруппированные"
+											наборы качеств отражают
+											"систему координат" человека - базовые категории, по которым он осознанно
+											или неосознанно оценивает
+											других людей.
+										</p>
+										<p>На этом сайте Вы сможете пройти реп-тест Келли и
+											ознакомиться с результатами в виде текстового описания
+											и двумерных графиков. Также будет предложено назвать выделенные категории
+											людей и признаков и оценить,
+											насколько полученная картина соответствует действительности.
+										</p>
+									</div>
+								</div>
+
+							</div> 
+							<div class="panel-heading">
+								<div class="row">
+									<div id="l1" class="col-lg-4 col-sm-4 col-xl-4" style="margin-bottom: 5px !important;">
+										<a href="#" class="active" id="login-form-link">Вход</a>
+									</div>
+									<div id="l2" class="col-lg-4 col-sm-4 col-xl-4" style="margin-bottom: 5px !important;">
+										<a href="#" id="register-form-link">Регистрация</a>
+									</div>
+									<div id="l3" class="col-lg-4 col-sm-4 col-xl-4" style="margin-bottom: 5px !important;">
+										<a href="#" id="forgot-form-link">Сброс пароля</a>
+									</div>
+								</div>
+							</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-lg-12">
+										<form id="login-form" onsubmit="return beforeLoginFormSubmit();" action=""
+											method="post" role="form" style="display: block;">
+											{% csrf_token %}
+											<div class="form-group">
+												<label class="icon-lp"><i class="fas fa-user-tie"></i></label>
+												<input type="text" oninput="trimtext(this); "
+													onpaste="setTimeout(function() { checkusernamelogin();}, 0);"
+													name="usernamelogin" id="usernamelogin" tabindex="1"
+													class="form-control" placeholder="логин" value="" required="">
+											</div>
+
+											<div id="errdivloginusername" class="form-group">
+												<label id="errlblloginusername"
+													style="color: red; margin-left: 20px;">ошибка логина</label>
+											</div>
+
+											<div class="form-group" id="divpwdlogin">
+												<label class="icon-lp"><i class="fas fa-key"></i></label>
+												<input type="password"
+													oninput="hideLoginErrPassword(); trimtext(this); makeSubmitLoginEnabledIfOfPass(); "
+													name="passwordlogin" id="passwordlogin" tabindex="2"
+													class="form-control" placeholder="пароль" required="">
+												<label>&nbsp;&nbsp;&nbsp;<input type="checkbox"
+														onclick="togglePasswordLogin();">Показывать
+													пароль</label>
+
+											</div>
+
+											<div id="errdivloginpassword" class="form-group">
+												<label id="errlblloginpassword"
+													style="color: red; margin-left: 20px;">ошибка пароля</label>
+											</div>
+
+											<div id="lgnsbmt" class="form-group">
+												<div class="row">
+													<div class="col-sm-6 offset-sm-3">
+														<input type="submit" name="login-submit" id="login-submit"
+															tabindex="4" class="form-control btn btn-login"
+															value="Войти">
+													</div>
+												</div>
+											</div>
+											<ul>
+												<li>
+													<a href="/login/vk-oauth2" class="fb"><i class="fab fa-vk"></i>
+														Войти через ВК</a>
+												</li>
+											</ul>
+										</form>
+										<form id="register-form" action="" method="post" role="form"
+											style="display: none;">
+											{% csrf_token %}
+											<div class="form-group">
+												<label class="icon-lp"><i class="fas fa-user-tie"></i></label>
+												<input type="text" oninput="trimtext(this); "
+													onpaste="setTimeout(function() { checkusernamesignup();}, 0);"
+													name="usernamesignup" id="usernamesignup" tabindex="1"
+													class="form-control" placeholder="логин" value="" required="">
+											</div>
+
+											<div id="errdivsignupusername" class="form-group">
+												<label id="errlblsignupusername"
+													style="color: red; margin-left: 20px;">ошибка логина</label>
+											</div>
+
+											<div class="form-group" id="divemailsignup">
+												<label class="icon-lp"><i class="fas fa-envelope"></i></label>
+												<input type="text" oninput="trimtext(this); "
+													onpaste="setTimeout(function() { checkemailsignup();}, 0);"
+													name="emailsignup" id="emailsignup" tabindex="1"
+													class="form-control"
+													placeholder="email (необязательно, для восстановления пароля)"
+													value="">
+											</div>
+
+											<div id="errdivsignupemail" class="form-group">
+												<label id="errlblsignupemail"
+													style="color: red; margin-left: 20px;">ошибка email</label>
+											</div>
+
+
+											<div class="form-group" id="divpwdsignup">
+												<label class="icon-lp"><i class="fas fa-key"></i></label>
+												<input type="password" oninput="trimtext(this); " name="passwordsignup"
+													id="passwordsignup" tabindex="2" class="form-control"
+													placeholder="пароль" required="">
+												<label>&nbsp;&nbsp;&nbsp;<input type="checkbox"
+														onclick="togglePasswordSignUp();">Показывать
+													пароль</label>
+											</div>
+
+
+											<div class="form-group">
+												<div class="row">
+													<div class="col-sm-6 offset-sm-3">
+														<input type="submit" name="register-submit" id="register-submit"
+															tabindex="4" class="form-control btn btn-register"
+															value="Зарегистрироваться">
+													</div>
+												</div>
+											</div>
+											<ul>
+												<li>
+													<a href="/login/vk-oauth2" class="fb"><i class="fab fa-vk"></i>
+														Войти через ВК</a>
+												</li>
+											</ul>
+										</form>
+										<form id="forgot-form" action="" method="post" role="form"
+											style="display: none;">
+											{% csrf_token %}
+											<div class="form-group">
+												&nbsp;&nbsp;&nbsp;Если Вы забыли пароль, введите email, указанный при
+												регистрации, и нажмите кнопку "Выслать секретный код",
+												после этого введите полученный код в соответствующее поле и задайте
+												новый пароль
+											</div>
+
+											<div class="form-group">
+												<label class="icon-lp"><i class="fas fa-envelope"></i></label>
+												<input type="text" oninput="trimtext(this); "
+													onpaste="setTimeout(function() { checkemailforgot();}, 0);"
+													name="emailforgot" id="emailforgot" tabindex="1"
+													class="form-control" placeholder="email" value="" required="">
+											</div>
+
+											<div id="errdivforgotemail" class="form-group">
+												<label id="errlblforgotemail"
+													style="color: red; margin-left: 20px;">ошибка email</label>
+											</div>
+
+											<div class="form-group" id="divsendcode">
+												<button type="button" onclick="sendCode();" name="forgot-sendcode"
+													id="forgot-sendcode" tabindex="2"
+													class="form-control btn btn-register"><i
+														class="fas fa-envelope"></i>
+													&nbsp;&nbsp;Выслать секретный код</button>
+											</div>
+
+											<div class="form-group">
+												<label class="icon-lp"><i class="fas fa-user-secret"></i></label>
+												<input type="text" oninput="trimtext(this);" name="codeforgot"
+													id="codeforgot" tabindex="3" class="form-control"
+													class="form-control disabled"
+													placeholder="секретный код из почты (3-значное число)" value=""
+													required="" disabled="true">
+											</div>
+
+											<div id="txtdivcode" class="form-group">
+												<label id="txtlblcode" style="color: red; margin-left: 20px;">код
+													неверен</label>
+											</div>
+
+											<div class="form-group" id="divnewpass">
+												<label class="icon-lp"><i class="fas fa-key"></i></label>
+												<input type="password" oninput="trimtext(this);" name="newpassword"
+													id="newpassword" tabindex="4" class="form-control disabled"
+													placeholder="новый пароль" required="" disabled="true">
+												<label>&nbsp;&nbsp;&nbsp;<input type="checkbox"
+														onclick="togglePasswordForgot();" id="shownewpass"
+														disabled="true">Показывать
+													пароль</label>
+											</div>
+
+											<div class="form-group">
+												<div class="row">
+													<div class="col-sm-6 offset-sm-3">
+														<input type="submit" name="forgot-submit" id="forgot-submit"
+															tabindex="4" class="form-control btn btn-register disabled"
+															value="Сохранить и войти" disabled="true">
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<p class="footer-company-name">Использованы картины Павла Филонова. Оригинальный дизайн страницы
+							: <a href="https://html.design/">html design</a></p>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+	<script src="{% static 'jslg/jquery.min.js' %}"></script>
+	<script src="{% static 'jslg/bootstrap.min.js' %}"></script>
+	<script src="{% static 'jslg/particles.min.js' %}"></script>
+	<script src="{% static 'jslg/index.js' %}"></script>
+	<script type="text/javascript">
+
+		function detectMob() {
+			const toMatch = [
+				/Android/i,
+				/webOS/i,
+				/iPhone/i,
+				/iPad/i,
+				/iPod/i,
+				/BlackBerry/i,
+				/Windows Phone/i
+			];
+
+			return toMatch.some((toMatchItem) => {
+				return navigator.userAgent.match(toMatchItem);
+			});
+		}
+		const mob = detectMob();
+
+		
+
+		var nVer = navigator.appVersion;
+		var nAgt = navigator.userAgent;
+		var browserName = navigator.appName;
+		var fu1llVersion = '' + parseFloat(navigator.appVersion);
+		var majorVersion = parseInt(navigator.appVersion, 10);
+		var nameOffset, verOffset, ix;
+
+		// In Opera, the true version is after "Opera" or after "Version"
+		if ((verOffset = nAgt.indexOf("Opera")) != -1) {
+			browserName = "Opera";
+			fullVersion = nAgt.substring(verOffset + 6);
+			if ((verOffset = nAgt.indexOf("Version")) != -1)
+				fullVersion = nAgt.substring(verOffset + 8);
+		}
+		// In MSIE, the true version is after "MSIE" in userAgent
+		else if ((verOffset = nAgt.indexOf("MSIE")) != -1) {
+			browserName = "Microsoft Internet Explorer";
+			fullVersion = nAgt.substring(verOffset + 5);
+		}
+		// In Chrome, the true version is after "Chrome" 
+		else if ((verOffset = nAgt.indexOf("Chrome")) != -1) {
+			browserName = "Chrome";
+			fullVersion = nAgt.substring(verOffset + 7);
+		}
+		// In Safari, the true version is after "Safari" or after "Version" 
+		else if ((verOffset = nAgt.indexOf("Safari")) != -1) {
+			browserName = "Safari";
+			fullVersion = nAgt.substring(verOffset + 7);
+			if ((verOffset = nAgt.indexOf("Version")) != -1)
+				fullVersion = nAgt.substring(verOffset + 8);
+		}
+		// In Firefox, the true version is after "Firefox" 
+		else if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
+			browserName = "Firefox";
+			fullVersion = nAgt.substring(verOffset + 8);
+		}
+		// In most other browsers, "name/version" is at the end of userAgent 
+		else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) <
+			(verOffset = nAgt.lastIndexOf('/'))) {
+			browserName = nAgt.substring(nameOffset, verOffset);
+			fullVersion = nAgt.substring(verOffset + 1);
+			if (browserName.toLowerCase() == browserName.toUpperCase()) {
+				browserName = navigator.appName;
+			}
+		}
+
+		var OSName="Unknown OS";
+		if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
+		if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
+		if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
+		if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";
+
+
+		var currentdate = new Date();
+		var datetime = currentdate.getDate() + "/"
+			+ (currentdate.getMonth() + 1) + "/"
+			+ currentdate.getFullYear() + " @ "
+			+ currentdate.getHours() + ":"
+			+ currentdate.getMinutes() + ":"
+			+ currentdate.getSeconds();
+
+
+		var tz = Intl.DateTimeFormat().resolvedOptions().timeZone + "";
+
+		let saveData = new FormData();
+		saveData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+		saveData.append('page', "reg");
+		saveData.append('datetime', datetime);
+		saveData.append('width', screen.width);
+		saveData.append('height', screen.height);
+		saveData.append('browser', browserName);
+		saveData.append('os', OSName);
+		saveData.append('mob', mob);
+		saveData.append('tz', tz);
+		navigator.sendBeacon('{% url "stats" %}', saveData);
+
+
+		if (mob) {
+
+			document.getElementById("showbtn").style.maxWidth = "87vw";
+			document.getElementById("logoimg").style.maxWidth = "77vw";
+		}
+		else if (screen.width < 1000) {
+
+			document.getElementById("showbtn").style.maxWidth = "38vw";
+			document.getElementById("logoimg").style.maxWidth = "27vw";
+		}
+		else if (screen.width > 1270) {
+			document.getElementById('showbtn').removeChild(document.getElementById('showbtn').childNodes[1]);
+		}
+
+
+
+ 
+
+		$(function () {
+			$('#login-form-link').click(function (e) {
+				$("#login-form").delay(100).fadeIn(100);
+				$("#register-form").fadeOut(100);
+				$("#forgot-form").fadeOut(100);
+				$('#register-form-link').removeClass('active');
+				$('#forgot-form-link').removeClass('active');
+				$(this).addClass('active');
+				e.preventDefault();
+			});
+			$('#register-form-link').click(function (e) {
+				$("#register-form").delay(100).fadeIn(100);
+				$("#login-form").fadeOut(100);
+				$("#forgot-form").fadeOut(100);
+				$('#login-form-link').removeClass('active');
+				$('#forgot-form-link').removeClass('active');
+				$(this).addClass('active');
+				e.preventDefault();
+			});
+			$('#forgot-form-link').click(function (e) {
+				$("#forgot-form").delay(100).fadeIn(100);
+				$("#login-form").fadeOut(100);
+				$("#register-form").fadeOut(100);
+				$('#login-form-link').removeClass('active');
+				$('#register-form-link').removeClass('active');
+				$(this).addClass('active');
+				e.preventDefault();
+			});
+		});
+
+		$('.form-group input').focus(function () {
+			$(this).parent().addClass('addcolor');
+		}).blur(function () {
+			$(this).parent().removeClass('addcolor');
+		});
+
+		let showed = false;
+		const showBtn = document.getElementById('showbtn');
+
+		$('#showbtn').click(function () {
+			showed = !showed;
+			const txt = showed ? '\u00A0\u00A0Скрыть описание' : '\u00A0\u00A0Показать описание';
+			const lastC = showBtn.lastChild;
+			lastC.nodeValue = txt;
+		});
+
+		function trimtext(element) {
+			txt = $.trim($(element).val());
+			$(element).val(txt);
+		}
+
+		$('#codeforgot').on('keypress', function (e) {
+			keys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+			return keys.indexOf(e.key) > -1 &&
+				($('#codeforgot').val().length - codeInputForgot.selectionEnd + codeInputForgot.selectionStart) < 3;
+		});
+
+		$('#codeforgot').on('paste', function (e) {
+			var txt = $.trim(e.originalEvent.clipboardData.getData('Text'));
+			e.preventDefault();
+			if (txt.length + codeInputForgot.value.length - codeInputForgot.selectionEnd + codeInputForgot.selectionStart > 3 || txt.match(/[^\d]/)) {
+				return;
+			}
+			codeInputForgot.value = codeInputForgot.value.substring(0, codeInputForgot.selectionStart)
+				+ txt
+				+ codeInputForgot.value.substring(codeInputForgot.selectionEnd, codeInputForgot.value.length);
+		});
+
+		$('#codeforgot').on('paste, keyup', function (e) {
+			const len = $('#codeforgot').val().length;
+
+			if (len == 3) {
+				checkcode();
+			}
+			if (len < 3) {
+				hideForgotTextCode();
+			}
+		});
+
+
+
+		//setup before functions
+		var usernameLoginTimer;                //timer identifier
+		var usernameSignupTimer;
+		var emailSignupTimer;
+		var emailForgotTimer;
+
+
+
+		var doneTypingInterval = 1000;  //time in ms, 5 second for example
+
+		var $usernameLoginInput = $('#usernamelogin');
+		var $usernameSignupInput = $('#usernamesignup');
+		var $emailSignupInput = $('#emailsignup');
+		var $emailForgotInput = $('#emailforgot');
+
+		//on keyup, start the countdown
+		$usernameLoginInput.on('keyup', function (ev) {
+
+
+			var kc = ev.which || ev.keyCode;
+			if (kc === 9 || kc === 13) {
+				return;
+			}
+
+			clearTimeout(usernameLoginTimer);
+			usernameLoginTimer = setTimeout(checkusernamelogin, doneTypingInterval);
+		});
+
+		//on keydown, clear the countdown 
+		$usernameLoginInput.on('keydown', function (ev) {
+
+			var kc = ev.which || ev.keyCode;
+			if (kc === 9 || kc === 13) {
+				return;
+			}
+
+			hideLoginErrUsername();
+			hideLoginErrPassword();
+			$("#login-submit").attr("disabled", true);
+			$("#login-submit").addClass("disabled");
+			clearTimeout(usernameLoginTimer);
+
+		});
+
+		//on keyup, start the countdown
+		$usernameSignupInput.on('keyup', function (ev) {
+
+			var kc = ev.which || ev.keyCode;
+			if (kc === 9 || kc === 13) {
+				return;
+			}
+
+			clearTimeout(usernameSignupTimer);
+			usernameSignupTimer = setTimeout(checkusernamesignup, doneTypingInterval);
+		});
+
+		//on keydown, clear the countdown 
+		$usernameSignupInput.on('keydown', function (ev) {
+
+			var kc = ev.which || ev.keyCode;
+			if (kc === 9 || kc === 13) {
+				return;
+			}
+
+			hideSignupErrUsername();
+			$("#register-submit").attr("disabled", true);
+			$("#register-submit").addClass("disabled");
+			clearTimeout(usernameSignupTimer);
+		});
+
+		//on keyup, start the countdown
+		$emailSignupInput.on('keyup', function (ev) {
+
+			var kc = ev.which || ev.keyCode;
+			if (kc === 9 || kc === 13) {
+				return;
+			}
+
+			clearTimeout(emailSignupTimer);
+			emailSignupTimer = setTimeout(checkemailsignup, doneTypingInterval);
+		});
+
+		//on keydown, clear the countdown 
+		$emailSignupInput.on('keydown', function (ev) {
+
+			var kc = ev.which || ev.keyCode;
+			if (kc === 9 || kc === 13) {
+				return;
+			}
+
+			hideSignupErrEmail();
+			$("#register-submit").attr("disabled", true);
+			$("#register-submit").addClass("disabled");
+			clearTimeout(emailSignupTimer);
+		});
+
+		//on keyup, start the countdown
+		$emailForgotInput.on('keyup', function (ev) {
+
+			var kc = ev.which || ev.keyCode;
+			if (kc === 9 || kc === 13) {
+				return;
+			}
+
+			clearTimeout(emailForgotTimer);
+			emailForgotTimer = setTimeout(checkemailforgot, doneTypingInterval);
+		});
+
+		//on keydown, clear the countdown 
+		$emailForgotInput.on('keydown', function (ev) {
+
+			var kc = ev.which || ev.keyCode;
+			if (kc === 9 || kc === 13) {
+				return;
+			}
+
+			hideForgotErrEmail();
+			$("#forgot-sendcode").attr("disabled", true);
+			$("#forgot-sendcode").addClass("disabled");
+			clearTimeout(emailForgotTimer);
+		});
+
+
+		const loginForm = document.getElementById("login-form");
+		const signupForm = document.getElementById("register-form");
+		const forgotForm = document.getElementById("forgot-form");
+
+
+
+		const usernameInputLogin = document.getElementById("usernamelogin");
+		const usernameErrorLoginLbl = document.getElementById("errlblloginusername");
+		const usernameErrorLoginDiv = document.getElementById("errdivloginusername");
+		let showedErrUsernameLogin = true;
+		const divpwdlogin = document.getElementById("divpwdlogin"); //перед ним вставляем ошибку юзернейма в логин форме
+
+		const origBorderColor = usernameInputLogin.style.borderColor;
+		const origBorderWidth = usernameInputLogin.style.borderWidth;
+
+		const passwordInputLogin = document.getElementById("passwordlogin");
+		const passwordErrorLoginLbl = document.getElementById("errlblloginpassword");
+		const passwordErrorLoginDiv = document.getElementById("errdivloginpassword");
+		let showedErrPasswordLogin = true;
+		const divlgnsbmt = document.getElementById("lgnsbmt"); //перед ним вставляем ошибку пароля в логин форме
+
+
+
+		const usernameInputSignup = document.getElementById("usernamesignup");
+		const usernameErrorSignupLbl = document.getElementById("errlblsignupusername");
+		const usernameErrorSignupDiv = document.getElementById("errdivsignupusername");
+		let showedErrUsernameSignup = true;
+		const divemailsignup = document.getElementById("divemailsignup"); //перед ним вставляем ошибку юзернейма в сигнап форме
+
+
+		const emailInputSignup = document.getElementById("emailsignup");
+		const emailErrorSignupLbl = document.getElementById("errlblsignupemail");
+		const emailErrorSignupDiv = document.getElementById("errdivsignupemail");
+		let showedErrEmailSignup = true;
+		const divpwdsignup = document.getElementById("divpwdsignup"); //перед ним вставляем ошибку email в сигнап форме
+
+		const passwordInputSignup = document.getElementById("passwordsignup");
+
+
+
+		const emailInputForgot = document.getElementById("emailforgot");
+		const emailErrorForgotLbl = document.getElementById("errlblforgotemail");
+		const emailErrorForgotDiv = document.getElementById("errdivforgotemail");
+		let showedErrEmailForgot = true;
+		const divsendcode = document.getElementById("divsendcode"); //перед ним вставляем ошибку email в forgot форме
+
+		const codeInputForgot = document.getElementById("codeforgot");
+		const codeTxtLbl = document.getElementById("txtlblcode");
+		const codeTxtrDiv = document.getElementById("txtdivcode");
+		let showedTxtCode = true;
+		const divnewpass = document.getElementById("divnewpass"); //перед ним вставляем текст про код в forgot форме
+
+		const passwordInputForgot = document.getElementById("newpassword");
+
+
+
+		let usernameLoginCorrect = false;
+		let passwordLoginCorrect = false;
+
+		hideLoginErrUsername();
+		hideLoginErrPassword();
+		hideSignupErrUsername();
+		hideSignupErrEmail();
+		hideForgotErrEmail();
+		hideForgotTextCode();
+
+
+
+		function beforeLoginFormSubmit() {
+			if (passwordLoginCorrect)
+				return true;
+			checkpasswordlogin();
+			return false;
+		}
+
+		function checkusernamelogin() {
+
+
+			hideLoginErrUsername();
+			$("#login-submit").attr("disabled", false);
+			$("#login-submit").removeClass("disabled");
+
+
+
+			const login = $.trim($('#usernamelogin').val());
+
+			if (login == "")
+				return;
+
+
+			$("#login-submit").attr("disabled", true);
+			$("#login-submit").addClass("disabled");
+
+			$.ajax({
+				url: '{% url "regandauth:check_login" %}',
+				data: {
+					"csrfmiddlewaretoken": $('#login-form').children(":first").val(),
+					"login": login
+				},
+				method: "POST",
+				dataType: "json",
+				success: function (returned_data) {
+
+					usernameLoginCorrect = false;
+
+					if (returned_data.l != $.trim($('#usernamelogin').val())) {
+						return;
+					}
+
+					if (returned_data.err) {
+						showLoginErrUsername(returned_data.err);
+						$("#login-submit").attr("disabled", true);
+						$("#login-submit").addClass("disabled");
+					} else {
+						if (returned_data.user_exists) {
+							hideLoginErrUsername();
+							$("#login-submit").attr("disabled", false);
+							$("#login-submit").removeClass("disabled");
+							usernameLoginCorrect = true;
+						}
+						else {
+							showLoginErrUsername('пользователь с таким именем не зарегистрирован');
+							$("#login-submit").attr("disabled", true);
+							$("#login-submit").addClass("disabled");
+						}
+					}
+				}
+			});
+		}
+
+
+
+		// sleep time expects milliseconds
+		function sleep(time) {
+			return new Promise((resolve) => setTimeout(resolve, time));
+		}
+
+
+
+
+
+
+		function checkpasswordlogin() {
+
+			passwordLoginCorrect = false;
+			hideLoginErrPassword();
+			$("#login-submit").attr("disabled", false);
+			$("#login-submit").removeClass("disabled");
+
+			const login = $.trim($('#usernamelogin').val());
+			const password = $.trim($('#passwordlogin').val());
+			if (login == "" || password == "")
+				return;
+
+
+			$("#login-submit").attr("disabled", true);
+			$("#login-submit").addClass("disabled");
+
+			$.ajax({
+				url: '{% url "regandauth:check_password" %}',
+				data: {
+					"csrfmiddlewaretoken": $('#login-form').children(":first").val(),
+					"login": login,
+					"password": password
+				},
+				method: "POST",
+				dataType: "json",
+				success: function (returned_data) {
+
+					passwordLoginCorrect = false;
+
+
+					if (returned_data.err) {
+						showLoginErrPassword(returned_data.err);
+						$("#login-submit").attr("disabled", true);
+						$("#login-submit").addClass("disabled");
+					} else {
+						if (returned_data.correct) {
+							hideLoginErrPassword();
+							passwordLoginCorrect = true;
+							$("#login-form").submit();
+						}
+						else {
+							showLoginErrPassword('пароль неверен');
+							$("#login-submit").attr("disabled", true);
+							$("#login-submit").addClass("disabled");
+						}
+					}
+				}
+			});
+
+		}
+
+
+		function hideLoginErrUsername() {
+
+			if (!showedErrUsernameLogin)
+				return;
+
+			usernameInputLogin.style.borderColor = origBorderColor;
+			usernameInputLogin.style.borderWidth = origBorderWidth;
+			loginForm.removeChild(usernameErrorLoginDiv);
+
+			showedErrUsernameLogin = false;
+
+		}
+
+		function hideLoginErrPassword() {
+
+			if (!showedErrPasswordLogin)
+				return;
+
+			passwordInputLogin.style.borderColor = origBorderColor;
+			passwordInputLogin.style.borderWidth = origBorderWidth;
+			loginForm.removeChild(passwordErrorLoginDiv);
+
+			showedErrPasswordLogin = false;
+
+		}
+
+		function hideSignupErrUsername() {
+
+			if (!showedErrUsernameSignup)
+				return;
+
+			usernameInputSignup.style.borderColor = origBorderColor;
+			usernameInputSignup.style.borderWidth = origBorderWidth;
+			signupForm.removeChild(usernameErrorSignupDiv);
+
+			showedErrUsernameSignup = false;
+
+		}
+
+		function hideSignupErrEmail() {
+
+			if (!showedErrEmailSignup)
+				return;
+
+			emailInputSignup.style.borderColor = origBorderColor;
+			emailInputSignup.style.borderWidth = origBorderWidth;
+			signupForm.removeChild(emailErrorSignupDiv);
+
+			showedErrEmailSignup = false;
+
+		}
+
+		function hideForgotErrEmail() {
+
+			if (!showedErrEmailForgot)
+				return;
+
+			emailInputForgot.style.borderColor = origBorderColor;
+			emailInputForgot.style.borderWidth = origBorderWidth;
+			forgotForm.removeChild(emailErrorForgotDiv);
+
+			showedErrEmailForgot = false;
+
+		}
+
+		function hideForgotTextCode() {
+
+			if (!showedTxtCode)
+				return;
+
+			codeInputForgot.style.borderColor = origBorderColor;
+			codeInputForgot.style.borderWidth = origBorderWidth;
+			forgotForm.removeChild(codeTxtrDiv);
+
+			showedTxtCode = false;
+
+		}
+
+		function showLoginErrUsername(txt) {
+
+			usernameInputLogin.style.borderColor = "red";
+			usernameInputLogin.style.borderWidth = "2px";
+
+			usernameErrorLoginLbl.innerHTML = txt;
+
+			if (!showedErrUsernameLogin)
+				loginForm.insertBefore(usernameErrorLoginDiv, divpwdlogin);
+
+			showedErrUsernameLogin = true;
+
+		}
+
+		function showLoginErrPassword(txt) {
+
+			passwordInputLogin.style.borderColor = "red";
+			passwordInputLogin.style.borderWidth = "2px";
+
+			passwordErrorLoginLbl.innerHTML = txt;
+
+			if (!showedErrPasswordLogin)
+				document.getElementById('login-form').insertBefore(passwordErrorLoginDiv, lgnsbmt);
+
+			showedErrPasswordLogin = true;
+
+		}
+
+		function showSignupErrUsername(txt) {
+
+			usernameInputSignup.style.borderColor = "red";
+			usernameInputSignup.style.borderWidth = "2px";
+
+			usernameErrorSignupLbl.innerHTML = txt;
+
+			if (!showedErrUsernameSignup)
+				document.getElementById('register-form').insertBefore(usernameErrorSignupDiv, divemailsignup);
+
+			showedErrUsernameSignup = true;
+
+		}
+
+		function showSignupErrEmail(txt) {
+
+			emailInputSignup.style.borderColor = "red";
+			emailInputSignup.style.borderWidth = "2px";
+
+			emailErrorSignupLbl.innerHTML = txt;
+
+			if (!showedErrEmailSignup)
+				document.getElementById('register-form').insertBefore(emailErrorSignupDiv, divpwdsignup);
+
+			showedErrEmailSignup = true;
+
+		}
+
+		function showForgotErrEmail(txt) {
+
+			emailInputForgot.style.borderColor = "red";
+			emailInputForgot.style.borderWidth = "2px";
+
+			emailErrorForgotLbl.innerHTML = txt;
+
+			if (!showedErrEmailForgot)
+				document.getElementById('forgot-form').insertBefore(emailErrorForgotDiv, divsendcode);
+
+			showedErrEmailForgot = true;
+
+		}
+
+
+		function makeSubmitLoginEnabledIfOfPass() {
+
+			if (!usernameLoginCorrect || passwordLoginCorrect)
+				return;
+
+			$("#login-submit").attr("disabled", false);
+			$("#login-submit").removeClass("disabled");
+		}
+
+
+		function checkusernamesignup() {
+
+
+			hideSignupErrUsername();
+
+			if (!showedErrEmailSignup) {
+
+				$("#register-submit").attr("disabled", false);
+				$("#register-submit").removeClass("disabled");
+
+			}
+
+
+
+			const login = $.trim($('#usernamesignup').val());
+
+			if (login == "")
+				return;
+
+
+			$("#register-submit").attr("disabled", true);
+			$("#register-submit").addClass("disabled");
+
+			$.ajax({
+				url: '{% url "regandauth:check_login" %}',
+				data: {
+					"csrfmiddlewaretoken": $('#register-form').children(":first").val(),
+					"login": login
+				},
+				method: "POST",
+				dataType: "json",
+				success: function (returned_data) {
+
+
+					if (returned_data.l != $.trim($('#usernamesignup').val())) {
+						return;
+					}
+
+					if (returned_data.err) {
+						showSignupErrUsername(returned_data.err);
+						$("#register-submit").attr("disabled", true);
+						$("#register-submit").addClass("disabled");
+					} else {
+						if (!returned_data.user_exists) {
+							hideSignupErrUsername();
+							if (!showedErrEmailSignup) {
+
+								$("#register-submit").attr("disabled", false);
+								$("#register-submit").removeClass("disabled");
+
+							}
+						}
+						else {
+							showSignupErrUsername('пользователь с таким именем уже зарегистрирован, выберите другое');
+							$("#register-submit").attr("disabled", true);
+							$("#register-submit").addClass("disabled");
+						}
+					}
+				}
+			});
+		}
+
+		function checkemailsignup() {
+
+			hideSignupErrEmail();
+
+			if (!showedErrUsernameSignup) {
+				$("#register-submit").attr("disabled", false);
+				$("#register-submit").removeClass("disabled");
+			}
+
+
+			const email = $.trim($('#emailsignup').val());
+
+			if (email == "")
+				return;
+
+
+			$("#register-submit").attr("disabled", true);
+			$("#register-submit").addClass("disabled");
+
+			$.ajax({
+				url: '{% url "regandauth:check_email" %}',
+				data: {
+					"csrfmiddlewaretoken": $('#register-form').children(":first").val(),
+					"email": email
+				},
+				method: "POST",
+				dataType: "json",
+				success: function (returned_data) {
+
+
+					if (returned_data.l != $.trim($('#emailsignup').val())) {
+						return;
+					}
+
+					if (returned_data.err) {
+						showSignupErrEmail(returned_data.err);
+						$("#register-submit").attr("disabled", true);
+						$("#register-submit").addClass("disabled");
+					} else {
+						if (!returned_data.is_correct) {
+							showSignupErrEmail('некорректный email');
+							$("#register-submit").attr("disabled", true);
+							$("#register-submit").addClass("disabled");
+						}
+						else {
+							if (returned_data.is_busy) {
+								showSignupErrEmail('с таким email уже зарегистрирован другой пользователь');
+								$("#register-submit").attr("disabled", true);
+								$("#register-submit").addClass("disabled");
+							}
+							else {
+								hideSignupErrEmail();
+								if (!showedErrUsernameSignup) {
+									$("#register-submit").attr("disabled", false);
+									$("#register-submit").removeClass("disabled");
+								}
+							}
+						}
+					}
+				}
+			});
+
+		}
+
+		function checkemailforgot() {
+
+			hideForgotErrEmail();
+
+			$("#forgot-sendcode").attr("disabled", false);
+			$("#forgot-sendcode").removeClass("disabled");
+
+
+
+
+			const email = $.trim($('#emailforgot').val());
+
+			if (email == "")
+				return;
+
+
+			$("#forgot-sendcode").attr("disabled", true);
+			$("#forgot-sendcode").addClass("disabled");
+
+			$.ajax({
+				url: '{% url "regandauth:check_email" %}',
+				data: {
+					"csrfmiddlewaretoken": $('#forgot-form').children(":first").val(),
+					"email": email
+				},
+				method: "POST",
+				dataType: "json",
+				success: function (returned_data) {
+
+
+					if (returned_data.l != $.trim($('#emailforgot').val())) {
+						return;
+					}
+
+					if (returned_data.err) {
+						showForgotErrEmail(returned_data.err);
+						$("#forgot-sendcode").attr("disabled", true);
+						$("#forgot-sendcode").addClass("disabled");
+					} else {
+						if (!returned_data.is_correct) {
+							showForgotErrEmail('некорректный email');
+							$("#forgot-sendcode").attr("disabled", true);
+							$("#forgot-sendcode").addClass("disabled");
+						}
+						else {
+							if (!returned_data.is_busy) {
+								showForgotErrEmail('с таким email не зарегистрирован ни один пользователь');
+								$("#forgot-sendcode").attr("disabled", true);
+								$("#forgot-sendcode").addClass("disabled");
+							}
+							else {
+								hideForgotErrEmail();
+								$("#forgot-sendcode").attr("disabled", false);
+								$("#forgot-sendcode").removeClass("disabled");
+							}
+						}
+					}
+				}
+			});
+		}
+
+		function sendCode() {
+
+			const email = $.trim($('#emailforgot').val());
+
+			if (email == "") {
+				alert("Для отправки кода введите email в поле выше");
+				return;
+			}
+
+
+			$.ajax({
+				url: '{% url "regandauth:sendcode" %}',
+				data: {
+					"csrfmiddlewaretoken": $('#forgot-form').children(":first").val(),
+					"email": email
+				},
+				method: "POST",
+				dataType: "json",
+				success: function (returned_data) {
+
+
+					if (returned_data.err) {
+						alert("Ошибка при отправке кода: " + returned_data.err);
+					} else {
+						if (!returned_data.is_correct) {
+							alert("Не удалось отправить код, попробуйте позже или обратитесь к администратору");
+						}
+						else {
+							$("#emailforgot").attr("readonly", true);
+							$("#emailforgot").addClass("disabled");
+
+							$("#forgot-sendcode").attr("disabled", true);
+							$("#forgot-sendcode").addClass("disabled");
+
+							alert("На адрес " + email + " выслан секретный код. Введите его в поле ниже, после чего задайте новый пароль");
+
+							$("#codeforgot").attr("disabled", false);
+							$("#codeforgot").removeClass("disabled");
+						}
+					}
+				}
+			});
+		}
+
+		function checkcode() {
+			$.ajax({
+				url: '{% url "regandauth:check_code" %}',
+				data: {
+					"csrfmiddlewaretoken": $('#forgot-form').children(":first").val(),
+					"email": $.trim($('#emailforgot').val()),
+					"code": $.trim($('#codeforgot').val())
+				},
+				method: "POST",
+				dataType: "json",
+				success: function (returned_data) {
+
+
+					if (!returned_data.correct) {
+						showCodeBad();
+					}
+					else {
+						showCodeGood();
+					}
+				}
+			});
+
+		}
+
+		function showCodeBad() {
+			codeTxtLbl.style.color = 'red';
+			codeTxtLbl.innerHTML = 'код введен неверно';
+
+			if (!showedTxtCode)
+				document.getElementById('forgot-form').insertBefore(codeTxtrDiv, divnewpass);
+
+			showedTxtCode = true;
+		}
+
+		function showCodeGood() {
+			codeTxtLbl.style.color = 'green';
+			codeTxtLbl.innerHTML = 'код введен верно, задайте новый пароль и нажмите кнопку "сохранить и войти"';
+
+
+			if (!showedTxtCode)
+				document.getElementById('forgot-form').insertBefore(codeTxtrDiv, divnewpass);
+
+			showedTxtCode = true;
+
+			$("#codeforgot").attr("disabled", true);
+			$("#codeforgot").addClass("disabled");
+
+			$("#newpassword").attr("disabled", false);
+			$("#newpassword").removeClass("disabled");
+
+			$("#forgot-submit").attr("disabled", false);
+			$("#forgot-submit").removeClass("disabled");
+
+			$("#shownewpass").attr("disabled", false);
+
+		}
+
+		function togglePasswordLogin() {
+			togglePassword(passwordInputLogin);
+
+		}
+
+		function togglePasswordSignUp() {
+			togglePassword(passwordInputSignup);
+		}
+
+		function togglePasswordForgot() {
+			togglePassword(passwordInputForgot);
+
+		}
+
+		function togglePassword(x) {
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+
+
+	</script>
+</body>
+
+</html>

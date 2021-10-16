@@ -1,0 +1,2255 @@
+{% extends 'main/index.html' %}
+
+{% load lookup_tag %}
+
+{% block style %}
+
+<!-- Fontawesome CSS -->
+<style>
+    body {
+        caret-color: transparent !important;
+        transform-style: preserve-3d;
+        /* this is important for the trick to work */
+
+    }
+
+    .noselect {
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Old versions of Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+                                        supported by Chrome, Edge, Opera and Firefox */
+    }
+
+
+    .divAll {
+        width: 500px;
+        height: 300px;
+    }
+
+
+    .estdivIMG {
+        background: url("/static/vld.jpg");
+        caret-color: transparent;
+        background-size: cover;
+        z-index: 0;
+        position: relative;
+    }
+ 
+
+
+
+    .estdivLINE {
+        background-color: rgba(255, 255, 255, 0);
+        caret-color: transparent;
+        z-index: 0;
+        position: relative;
+
+    }
+
+    .estdiv {
+        background-color: rgba(0, 0, 0, 0);
+        caret-color: transparent;
+        z-index: 20;
+        position: relative;
+        outline: none;
+    }
+
+    .hrc {
+        position: absolute;
+        z-index: 0;
+        height: 5px;
+        width: 1160px;
+        bottom: 9px;
+        left: 27.5px;
+        background-color: rgba(253, 5, 5, 0.6);
+    }
+
+    .abs {
+        position: absolute;
+    }
+
+    .cho {
+        opacity: 0.9;
+    }
+
+    .cho:hover {
+        opacity: 1;
+    }
+
+
+    .svgnorm {
+        opacity: 0.75;
+        outline: none;
+    }
+
+    .svgnorm:hover {
+        opacity: 0.85;
+        outline: none;
+    }
+
+    .svgfirst {
+        opacity: 0.95;
+        outline: none;
+    }
+
+    .svgfirst:hover {
+        opacity: 1;
+        outline: none;
+    }
+
+    .svgfade {
+        opacity: 0.4;
+        pointer-events: none;
+        outline: none;
+    }
+
+    .svghidden {
+        opacity: 0.2;
+        pointer-events: none;
+        outline: none;
+    }
+
+
+    .small {
+        fill: beige;
+        font: italic 12px serif;
+    }
+
+    .mrg {
+        margin-top: 5px;
+        margin-right: 10px;
+        margin-bottom: 5px;
+    }
+
+    .mrg1 {
+        margin-top: 5px; 
+        margin-bottom: 5px;
+    }
+
+    p {
+        text-indent: 20px;
+        /* Отступ первой строки в пикселах */
+    }
+      
+
+    table { 
+        border-collapse: collapse;
+        width: 100%;
+        font-size: large;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    
+    .tickline {
+        border-left: 5px solid rgba(155, 90, 177);
+        height: 60px;
+        position:absolute;
+        opacity: 0.5;
+        bottom: 0px;
+    } 
+
+    .imptickline {
+        border-left: 5px solid rgba(65, 105, 200);
+        height: 60px;
+        position:absolute;
+        opacity: 0.6;
+        bottom: 0px;
+    } 
+
+    .ticklinelbl {
+        color: rgb(105, 165, 255);
+        position:absolute;
+        bottom: 60px;
+        font-size: larger;
+        text-align: center;
+    }
+
+    .impticklinelbl {
+        color: rgb(190, 150, 255);
+        position:absolute;
+        bottom: 60px;
+        font-size: larger;
+        text-align: center;
+    }
+
+
+   
+</style>
+{% endblock %}
+
+{% block content %}
+
+
+<div id="navdiv" style="text-align: center;">
+    <h2 >Оценка людей</h2>
+    <hr>
+    {% for i in n %}
+    {% if i <= lastOpenedStep and i != cur_step %} <a href="{% url 'estpeople:render_step' cur_step=i %}">{% endif %}
+        <button type="button" {% if i <= lastOpenedStep %} {% with lookup_result=pages|lookup:i %} {% if lookup_result %}
+            class="btn btn-success" {% endif %} {% if not lookup_result %} class="btn btn-primary" {% endif %} 
+            {% endwith %} {% endif %} {% if i <= lastOpenedStep and i != cur_step %} style="margin-top: 5px;" {% endif %} 
+            {% if i == cur_step %} id="curBtnTop" style="font-size: x-large; margin-top: 5px; border-style: double; border-width: 5px; border-color: blue;" {% endif %} {% if i > lastOpenedStep %}
+            class="btn btn-secondary" style="font-size: smaller; margin-top: 5px;" {% endif %}>{{i}}{% with lookup_result=pagesNames|lookup:i %}{% if lookup_result != "" %} - {{lookup_result}}{% endif %}{% endwith %}
+        </button>{% if i <= lastOpenedStep and i != cur_step %} </a> {% endif %} {% endfor %}
+    <hr>
+</div>
+ 
+{% if cur_step != 0 %} 
+
+
+<div style="text-align: center;">
+<div id="questDiv" style="font-size: larger; text-align: center; ">
+    <button id="left" class="button cho" onclick="leftbtnclick();"> << </button>
+
+    <button id="right" class="button cho" onclick="rightbtnclick();"> >> </button><br><br>
+    <div id="quest1">
+        
+    </div>
+    <div id="listfor3" style="margin-left: 0 auto;"> 
+        <br>
+        <label id="lbldf1" style="caret-color: transparent;" for="diffrd1"><input
+            style="margin-left: 10px; caret-color: transparent;" type="radio" class="btn-check"
+            name="diffrd" id="diffrd1" value="1" autocomplete="off" onchange="rbc();" /> 1</label>
+            
+        <br>
+        <label id="lbldf2" style="caret-color: transparent;" for="diffrd2"><input
+            style="margin-left: 10px; caret-color: transparent;" type="radio" class="btn-check"
+            name="diffrd" id="diffrd2" value="2" autocomplete="off" onchange="rbc();" /> 2</label>
+        <br>
+        <label id="lbldf3" style="caret-color: transparent;" for="diffrd3"><input
+                style="margin-left: 10px; caret-color: transparent;" type="radio" class="btn-check"
+                name="diffrd" id="diffrd3" value="3" autocomplete="off" onchange="rbc();"  /> 3</label>
+        <br> 
+        <br> 
+      </div> 
+      <div id="quest2">
+        
+    </div>
+</div>
+<div id="qinputDiv" style="margin-top: 20px;"> 
+
+ 
+    
+
+    <table id="tblq">
+  
+        <tr>
+            <td style="text-align: left; width: 45%; padding-top: 30px;">
+                <ul id="leftList" style="list-style-type: none;">
+             
+                </ul>
+            </td> 
+            <td style="text-align: left; width: 45%; padding-top: 30px;">
+                <ul id="rightList" style="list-style-type: none;">
+                    
+             
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 20px;"><h5><input type="text" id="inputProp" maxlength="40" oninput="inputchanged();"
+        style=" margin-left: 14px; max-width: 70%; text-align: center; margin-right: 14px; margin-bottom: 10px; caret-color: black !important;  border-color: rgba(17, 17, 128, 0.6); "
+        /></h5></div> 
+
+ 
+
+</div>
+
+
+<div id="allDiv" style="text-align: center; position: relative;">
+<div style="text-align: center;">
+    <hr>
+        <label id="invdiv" style="font-size: large; margin-bottom: 0px !important;">Оцените людей по качеству <b>"<label id="lblqa"></label>"</b><br><small style="font-size: smaller;">(оценка 100[справа] - качество "<label id="lblqa1"></label>" выражено максимально, -100[слева] - минимально, 0 - выражено средне либо затрудняетесь ответить; естественно, можно выбирать любые промежуточные оценки - любое место на линии оценок, а также оценивать двух и более людей одинаково)</small> </label> 
+    
+    <hr style="margin-top: 0px !important;">
+</div>
+<div class="divAll estdivIMG" id="estdivIMG">
+    <div class="divAll estdivLINE" id="estdivLINE">
+        <div class="divAll estdiv noselect" id="estdiv">
+
+
+            {% for estim in estims %}
+            <svg id="svg{{estim.id}}" data-itemid="{{estim.item.id}}" width="55" height="72" class="svgnorm">
+                <text x="26" y="12" text-anchor="middle" class="small">{{ estim.item.name|slice:"0:5" }} 
+                    {% if estim.item.name|length > 5 %}...{% endif %}
+                </text>
+                <rect id="innr{{forloop.counter}}" x="2" y="18" class="rctt" width="50" height="50" style="
+                        fill: {{estim.item.color}};
+                        stroke: {{estim.item.bordercolor}};
+                        stroke-width: 5;
+                        fill-opacity: 0.7;
+                        stroke-opacity: 0.8;
+                        ">
+
+                </rect>
+                <title id="name{{forloop.counter}}">{{estim.item.name}}</title> 
+            </svg>
+            {% endfor %}
+
+
+
+        </div>
+
+        <div class="imptickline" id="minus100line"></div>
+        <div class="tickline" id="minus75line"></div>
+        <div class="imptickline" id="minus50line"></div>
+        <div class="tickline" id="minus25line"></div>
+        <div class="imptickline" id="zeroline"></div>
+        <div class="tickline" id="plus25line"></div>
+        <div class="imptickline" id="plus50line"></div>
+        <div class="tickline" id="plus75line"></div>
+        <div class="imptickline" id="plus100line"></div>
+
+
+        <label class="impticklinelbl" id="minus100linelbl">-100</label>
+        <label class="ticklinelbl" id="minus75linelbl">-75</label>
+        <label class="impticklinelbl" id="minus50linelbl">-50</label>
+        <label class="ticklinelbl" id="minus25linelbl">-25</label>
+        <label class="impticklinelbl" id="zerolinelbl">0</label>
+        <label class="ticklinelbl" id="plus25linelbl">25</label>
+        <label class="impticklinelbl" id="plus50linelbl">50</label>
+        <label class="ticklinelbl" id="plus75linelbl">75</label>
+        <label class="impticklinelbl" id="plus100linelbl">100</label>
+
+
+        <hr class="hrc" id="lin" />
+    </div>
+</div>
+<div style="text-align: center;">
+<form action="" onsubmit="return beforesubmit();" style="text-align: center;" method="post" role="form">
+    {% csrf_token %}
+    <input type="hidden" id="notSaved" name="notSaved" value="false">
+    <div id="dvtpox" style="margin-top: 10px;  text-align: center;">
+        <button id="showbtn" type="button" data-toggle="collapse" class="mrg btn btn-light" data-target="#menudiv">Настройки</button>
+        <button id="btnHide" title="Скрыть всех уже оцененных" type="button"  onclick="hideAll();" class="mrg btn btn-secondary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+        </button>
+        <button id="btnShowAll" title="Показать всех скрытых" type="button" onclick="showAll();" class="mrg btn btn-success"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+        </button>
+        <div id="sell" class="mrg btn-group" >
+            <button id="btnShow" title="Показать одного скрытых (выбрать, кого конкретно)" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+            </button>
+            <div id="drdwn" class="dropdown-menu">
+            </div>
+            
+        </div>
+        <button id="btnShowLast" type="button" title="Показать последнего оцененного (если он скрыт)" onclick="showLast();" class="mrg btn btn-primary"><i class="fa fa-lightbulb-o" aria-hidden="true"></i>
+        </button>
+        
+        <label>Тек.</label>
+        <input type="text" disabled="true" id="lbl1" style="width: 140px; font-size: large; margin-bottom: 0px !important;"></input>
+        <label>Посл.</label>
+        <input type="text" disabled="true" id="lbl2" style="width: 140px; font-size: large; margin-bottom: 0px !important;"></input>
+        <button id="btngoleft" type="button" style="margin-left: 10px; margin-right: 2px;" onmousedown="startlefthold();" onmouseup="stoplefthold();" onmouseleave="stoplefthold();"  class="mrg btn btn-light"><i class="fa fa-caret-left" aria-hidden="true"></i>
+        </button>
+        <input id="lastestnud" type="number" min="-100" max="100" step="1"
+                            oninput="if(this.value > 100) this.value = 100; if(this.value < -100) this.value = -100; estnudChanged(this, true);"
+                            value="" style="caret-color: black !important; margin-top: 10px; margin-left: 2px; margin-right: 2px; max-width: 70px;">
+        <button id="btngoright" type="button" style="margin-left: 2px;" onmousedown="startrighthold();" onmouseup="stoprighthold();" onmouseleave="stoprighthold();" class="mrg btn btn-light"><i class="fa fa-caret-right" aria-hidden="true"></i>
+        </button> 
+        <input id="curdotvalnud" type="number" min="-100" max="100" step="1" disabled="true"
+               value="" style="caret-color: black !important; margin-top: 10px; margin-left: 2px; margin-right: 2px; max-width: 70px;">
+
+        <div id="menudiv" class="collapse" style="margin-top: 15px; text-align: center !important;"> 
+            <ul id="ulid" style="text-align: left !important; ">
+                <li >
+                    <label id="lblop">Время ожидания смены текущего (секунды)</label>
+                    <input id="speedInput" oninput="selectColorChange();" type="range" min="0.25" max="4" value="1"
+                        step="0.25">
+                    <label id="speedlbl"></label>
+                </li>
+                <li>
+                    <label id="lblim">Фоновое изображение</label>
+                    <select id="selectImg" onchange="selectImgChange();">
+                        <option>Левитан И.И. "Владимирка"</option>
+                        <option>Куинджи А.И. "Вечер на Украине"</option>
+                        <option>И. Босх "Искушение святого Антония"</option>
+                        <option>отсутствует</option>
+                    </select>
+                </li>
+                <li>
+                    <label id="collb">Цвет фона</label>
+                    <input id="backColorInput" oninput="selectColorChange();" type="color">
+                </li>
+                <li>
+                    <label id="lblop">Прозрачность фона (%)</label>
+                    <input id="opacityInput" oninput="selectColorChange();" type="range" min="0" max="100" value="100"
+                        step="1">
+                    <label id="opacitylbl"></label>
+                </li>
+                <li>
+                    <label id="collb2">Цвет подписей над квадратами/кругами</label>
+                    <input id="fontColorInput" oninput="selectColorChange();" type="color">
+                </li>
+                <li>
+                    <label id="collb3">Цвета координатных меток</label>
+                    <input id="impticklineColor" oninput="selectColorChange();" type="color">
+                    <input id="ticklineColor" oninput="selectColorChange();" type="color">
+                </li>
+                <li>
+                    <label id="collb4">Цвета подписей над координатными метками</label>
+                    <input id="impticklineLblColor" oninput="selectColorChange();" type="color">
+                    <input id="ticklineLblColor" oninput="selectColorChange();" type="color">
+                </li>
+            </ul> 
+        </div> 
+    </div>
+    <div id="dvbtn" style="text-align: center;" >
+        <div id="btnsReadyDiv" class="btn-group">
+            <button disabled="true" type="submit" id="btnReady" name="btnReady" class="{% if showEndBtn %}mrg{% endif %} btn btn-success"
+                style="font-size: x-large; ">Сохранить</button>
+            {% if showEndBtn %}
+            <button  id="btnReadyAll" name="btnAllReady" class="mrg1 btn btn-warning"
+                style="font-size: x-large; ">Завершить</button> 
+            {% endif %}
+        </div>
+            <input type="hidden" value="" id="propName" name="propName"/> 
+                <ul id="itemlist" style="text-align: left !important; list-style: none;">
+                    {% for estim in estims %}
+                    <li style="margin-bottom: 10px; " id="li-{{estim.item.id}}" class="liisf">
+                        <label id="estname-{{estim.item.id}}" style="width: 17vw;">{{estim.item.name}}</label>
+                        <span><input id="estline-{{estim.item.id}}" style="width: 34vw; height: 8px; margin-top: 15px; opacity: 0.3;"
+                            oninput="byForm=true; estlineChanged(this);" onclick="byForm=true; estlineChanged(this);" onchange="estlineChanged(this);" type="range"
+                            min="-100" max="100" value="0" step="1"></span>
+                        <input id="est-{{estim.item.id}}" name="est-{{estim.item.id}}" type="number" min="-100" max="100" step="1"
+                            oninput="if(this.value > 100) this.value = 100; if(this.value < -100) this.value = -100; byForm=true; estnudChanged(this);"
+                            value="" style="caret-color: black !important; margin-top: 10px; margin-left: 5px; max-width: 70px;">
+                    </li>
+                    {% endfor %}
+                </ul> 
+            <div id="btnsReadyDiv1" class="btn-group">
+                <button disabled="true" type="submit" id="btnReady1" name="btnReady" class="{% if showEndBtn %}mrg{% endif %} btn btn-success"
+                    style="font-size: x-large; ">Сохранить</button>
+                {% if showEndBtn %}
+                <button  id="btnReadyAll1" name="btnAllReady" class="mrg1 btn btn-warning"
+                    style="font-size: x-large; ">Завершить</button> 
+                {% endif %}
+            </div>
+
+        
+    </div>
+</form>
+</div>
+</div>
+</div>
+{% endif %}
+
+{% if cur_step == 0 %}
+<div id="descrdiv" style="margin: 0 auto; text-align:justify; font-size: larger; width: 51vw;">
+
+
+    <h5 style="text-align: center;">Шаги</h5>
+    <p>Сейчас Вам предстоит пройти 10 обязательных и 2 дополнительных (по желанию) шага сравнения и оценки людей.</p>
+    <p>В 10 первых обязательных шагах будут предъявляться пары или тройки из введенных Вами людей и будет спрашиваться,
+        чем они похожи или отличаются. В соответствующее поле нужно будет ввести название этого качества.</p>
+    <p>Два последних шага - необязательные и предназначены для ввода (и оценки по ним) тех качеств, которые важны для Вас, но не
+        выявились на первых 10 шагах при сравнении пар/троек. Если после прохождения 10 шагов у Вас не осталось важных 
+        качеств, которые не были учтены, эти шаги можно пропустить (нажав кнопку "завершить", внутри дополнительных шагов также
+        будет доступна эта кнопка, т.е можно пройти один или два доп. шага)</p>
+    <h5 style="text-align: center;">Вопросы</h5>
+    <p>На шагах 1-10 в верхней части экрана при загрузке шага предъявляются пары или (несколько чаще) тройки людей; для
+        пар спрашивается, чем один человек отличается от другого или наоборот чем они похожи, для троек нужно выбирать
+        одного человека, который наиболее отличается от двух других и затем указать, чем именно он от них отличается
+        (и чем они похожи между собой). Например, если двое в паре скорее трусливые, а третий скорее смелый, можно указать
+        качество "смелость"/"смелый" (или наоборот "трусость"/"трусливый", для качеств имеющих 2 "полюса" совершенно неважно, 
+        какой из них указывать, также как неважно, использовать существительное или прилагательное - пишите как Вам привычнее).
+        На каждом шаге предлагается три вопроса (переключение между вопросами осуществляется кнопками "<<" и ">>"). Выберите
+        тот из трех вопросов, по которому ответ наиболее очевиден (также важно, чтобы качество было значимым для Вас и не сильно
+        повторяло уже введенные на предыдущих шагах качества).        
+    </p>
+    <h5 style="text-align: center;">Качества</h5>    
+    <p>Чаще всего употребляются "непрерывные" качества (доброта, красота и тд), которые можно оценить любым положением
+        на шкале оценки. Также можно ввести "бинарное" качество, отвечающее на вопрос "да" или "нет" (например, "курит
+        ли"). Впрочем, для бинарных качеств тоже необязательно ставить людей на полюса шкалы оценки - можно, так же как
+        и для непрерывных качеств, поставить на любое место на ней (в зависимости от того, напирмер, наскоько это
+        качество характерно для человека). То есть фактически все качества можно отнести к непрерывным.</p>
+    <p>Название качества не обязательно должно быть понятным для всех словом, это может быть словосочетание, понятное
+        только Вам, выражающее некоторое трудно вербализуемое ощущение, единственное что важно - чтобы Вы смогли оценить
+        по нему всех введенных Вами людей (+ есть техническое ограничение - длина слова/выражения не может быть больше
+        40 символов). Обычно лучший выбор - качество, приходящее в голову первым или после недолгого размышления.</p>
+    <h5 style="text-align: center;">Оценка</h5>    
+    <p>После ввода качества открываются формы оценки. Верхняя форма представляет собой прямоугольник с множеством 
+        квадратиков внутри, символизирующими людей. Внизу этой формы находится красная "линия оценок" (на ней отмечены ключевые точки);
+        оценка на производится перемещением квадратика на 
+        эту линию (для наглядности квадратик при этом превращается в круг). Оценивать, естественно, можно не только ключевыми точками, 
+        а любым значением от -100 до 100 на линии оценок. Несколько человек вполне могут иметь одинаковую оценку. 
+        Если Вы затрудняетесь оценить человека, выберите место посередине (около 0)</p>
+        <p> Перемещать можно либо зажав квадратик и двигая его, либо
+        просто кликая по месту на линии оценок - при клике в это место переместитя текущий ("активный") квадрат (для выбора квадрата
+        текущим по нему нужно кликнуть либо передвинуть его вручную, в самом начале выбранным считается верхний левый
+        квадрат). Какая оценка соответствует текущему положению курсора мыши (если он находится над красной линией оценок) показано в самом правом прямоугольнике под верхней формой. 
+        После перемещения квадрата через 1 секунду кружок становится "неактивным" (почти прозрачным + по нему невозможно кликнуть) <small>[это сделано для того, чтобы уже оцененные не мешали оцкенивать новых, 
+        т.к по клику без этого выбирался один из старых вместо помещения нового в это место]</small> и текущим выбирается следующий из не находящихся на линии оценок.
+        Таким образом, можно просто кликать мышкой на место оценок, в которое хотите поместить квадрат, а затем ждать когда выберется следующий
+        и повторять то же самое (двигать мышку наверх, где находятся еще не оцененные, при этом не приходится)</p>
+        <p>Если Вы оценили человека, он стал неактивным
+        и Вы захотели поправить оценку, это можно сделать с помощью кнопок со стрелками (и поля ввода между ними) под формой, они снова выбирают активным последнего оцененного
+        и корректируют его оценку (надпись слева от стрелок [с припиской Посл.] - это имя последнего оцененного, а имя человека с текущего квадрата слева от нее [с припиской Тек.]).
+        Также можно снова показывать скрытых и скрывать их обратно с помощью 4 кнопок с лампочками ("скрыть всех оцененных", "показать всех скрытых", "показать одного из скрытых (выбрать, кого именно)" 
+        и "показать последнего оцененного, если он скрыт" соответственно)</p>
+        <p>Время смены активного можно корректировать с точностью до 0.25с, нажав "Настройки" (также в настройках можно выбрать фоновое изображение и настроить другие 
+            параметры внешнего вида верхней формы)</p><p>
+        Нижняя форма состоит из множества надписей имен/наименований людей, справа от которых располагаются линии оценки, похожие на шкалу громкости, и 
+        текстовое поле для ввода числового значения (в б-ве браузеров в нем есть кнопки "вверх/вниз" для удобной регулировки). Линия оценки на верхней форме,
+        индивидуальные линии оценок и текстовое поле в нижней всегда синхронизируются между собой (если задать оценку на одной из трех, две другие 
+        автоматически изменятся). При смене текущего на верхней форме он становится самым верхним на нижней.</p>
+        <p> Видео ниже показыает, как происходит оценка с помощью верхней (на 1 шаге) и нижней (на 2) форм. Естественно, использование обоих форм 
+            можно произвольно комбинировать на одном шаге. <small>[видео было записано некоторое время назад, некоторые элементы страницы были добавлены позже и отсутствуют на нем]</small></p>
+        <iframe id="ytv" style="width: 51vw; height: 38vw;" src="https://www.youtube.com/embed/flODRh6qfto">
+        </iframe>
+    <h5 style="text-align: center;">Сохранение и навигация</h5>  
+    <p>После того, как качество введено и все люди оценены, становится активной кнопка сохранения (кнопки сохранения и завершения для удобства дублируются под обоими формами).
+        При ее нажатии происходит переход на первый еще не сохраненный шаг (если все шаги уже пройдены, перезагружается та же страница). После прохождения первых 10 шагов поваляется также кнопка "завершить". 
+        Она позволяет не проходить дополнительные шаги или пройти только один из них. По ее нажатию происходит переход на страницу результатов. </p>
+    <p>Сверху страницы зеленым показаны уже пройденные шаги, синим - шаги, прохождение которых только началось <small>[если на
+        странице уже пройденного шага убрать какого-то человека с линии оценок, шаг снова станет непройденным и его знак
+        будет синего цвета, для перевода его обратно в состояние пройденного шага нужно вернуть всех людей на линию
+        оценок и нажать кнопку сохранения; если нажать кнопку завершения, когда есть незавершенные шаги с номером больше
+        10, такие шаги не будут учтены в обработке, будьте внимательны]</small>, серым цветом и маленьким шрифтом - еще не
+        проходившиеся шаги. Шаг, на котором Вы сейчас находитесь, показывается с увеличенным шрифтом и в синей рамке. На уже пройденные шаги можно
+        вернуться, нажав соответствующую цифру, и поправить на них название качества/оценки людей (если закрыть такую страницу, 
+        когда название качества пусто/кто-то из людей еще не оценен, она снова будет считаться не сохраненной). 
+        При каждом перемещении квадратиков сохранение происходит автоматически, но лучше для надежности после внесения всех изменений нажимать кнопки сохранения.
+        Кроме того, на еще не проходившиеся шаги из верхнего меню попасть нельзя, они открываются последовательно по мере прохождения (первый за
+        вторым и тд) по нажатию кнопки "сохранить"</p>
+</div>
+<div id="dvbtn" style="text-align: center;">
+    <form action="" method="post" role="form">
+        {% csrf_token %}
+        <button id="btnReady" type="submit" name="btnStart" class="btn btn-success"
+            style="font-size: x-large; margin-bottom: 5px; margin-top: 5px;">Начать</button>
+    </form>
+</div>
+{% endif %}
+{% endblock %}
+
+
+{% block js %}
+<script> 
+    const currentStep = "{{cur_step}}";
+    const isSaved = "{{page.is_saved}}" == "True";
+    const ticklines = [document.getElementById("minus100line"), document.getElementById("minus75line"),
+                        document.getElementById("minus50line"), document.getElementById("minus25line"),
+                         document.getElementById("zeroline"), document.getElementById("plus25line"),
+                         document.getElementById("plus50line"), document.getElementById("plus75line"),
+                            document.getElementById("plus100line")];
+
+
+    const ticklinelbls = [document.getElementById("minus100linelbl"), document.getElementById("minus75linelbl"),
+                        document.getElementById("minus50linelbl"), document.getElementById("minus25linelbl"),
+                         document.getElementById("zerolinelbl"), document.getElementById("plus25linelbl"),
+                         document.getElementById("plus50linelbl"), document.getElementById("plus75linelbl"),
+                            document.getElementById("plus100linelbl")];
+
+     
+
+    const a = "{{pages}}";
+    const ea = document.getElementById("editpeoplea");
+    ea.setAttribute("href", "/addpeople/");
+    const esa = document.getElementById("estpeoplea");
+    esa.setAttribute("href", "#");
+    const sr = document.getElementById("showresultsa");
+    sr.setAttribute("href", "/results/");
+    const li1 = $("#estpeopleli");
+    $("#estpeopleli").addClass("active");
+    const li2 = $("#showresultsli");
+    $("#showresultsli").removeClass("active");
+    const li3 = $("#editpeopleli");
+    $("#editpeopleli").removeClass("active");
+
+     
+
+
+    {% if cur_step == 0 %}
+
+    if (mob) {
+        document.getElementById("descrdiv").style.width = "80vw";
+        document.getElementById("ytv").style.width = "80vw";
+        document.getElementById("ytv").style.height = "65vw";
+    }
+
+    {% endif %}
+
+    {% if cur_step != 0 %}
+
+    
+    const showBtn = document.getElementById('showbtn');
+    let showed = false;
+    
+    $('#showbtn').click(function () {
+        showed = !showed;
+        const txt = showed ? 'Скрыть настройки' : 'Настройки';
+        showBtn.innerHTML = txt;
+    });
+
+
+    let pageNames = []
+    {% for nm in pagesNames %}
+    pageNames.push("{{nm}}");
+    {% endfor %} 
+    //let notHideCur = "{{data.not_hide_curpl}}" == "True";
+    //let changeCurAfterEst = "{{data.change_cur_after_est}}" == "True";
+
+    const quest1_3 = "Отметьте в списке ниже того человека, который наиболее сильно отличается от двух других";
+
+    const quest2_2_sim = "Введите в текстовое поле под таблицей ниже качество, по которому <i>похожи</i> люди в ее левой и правой колонках";
+
+    const quest2_2_dif = "Введите в текстовое поле под таблицей ниже качество, по которому <i>различаются</i> люди в ее левой и правой колонках";
+
+    const quest2_3 = "Введите в текстовое поле под таблицей ниже качество, по которому <i>похожи</i> два человека в ее левой колонке и по которому от них <i>отличается</i> человек в правой колонке";
+
+    
+    const questDiv = document.getElementById("questDiv");
+    const questLbl1 = document.getElementById("quest1");
+    const questLbl2 = document.getElementById("quest2");
+    const listqDiv = document.getElementById("listfor3");
+
+
+
+
+    const qinputDiv = document.getElementById("qinputDiv");
+    const tblq = document.getElementById("tblq");
+
+    const allDiv = document.getElementById("allDiv");
+    allDiv.hidden = true;
+
+    let allSaved = false;
+    let ln = document.getElementById("lin");
+
+    let man1;
+    let man2;
+    let man3;
+    let twoLike;
+    let idx;
+    let propSaved = false;
+
+    let movingleft = true;
+    let movingright = true;
+    let longpress = false; 
+    let pressTimer;
+    let blurTimer;
+
+    let notInPair;
+    let firstInPair;
+    let secondInPair; 
+    let thirdChosen1 = +"{{page.third_chosen1}}";
+    let thirdChosen2 = +"{{page.third_chosen2}}";
+    let thirdChosen3 = +"{{page.third_chosen3}}";
+
+    let prop1 = "{{page.prop1}}";
+    let prop2 = "{{page.prop2}}";
+    let prop3 = "{{page.prop3}}";
+
+    let saveqTimer;
+    let checkPropTimer;
+    let changeUlMarginTimer1;
+    let changeUlMarginTimer2;
+    let changeUlMarginTimer3;
+    let leftmovtimer;
+    let rightmovtimer;
+
+    let s;
+    let curPl;
+    let lastEstimatedPl;
+    let timerShowEst;
+    let draggablesCreated = false;
+    let beenHidden = false;
+    let saveTimer;
+    let checkVTimer;
+    let movingtimer1;
+    let movingtimer2;
+    const doneTypingInterval = 1000;
+    const images = ['url("/static/vld.jpg")', 'url("/static/vu.jpg")', 'url("/static/isan.jpg")', 'white'];
+    let objTimers = {};
+    let changeCurTimers = {};
+    let estsById = {};
+    let arrPd = [];
+    let draggablesById = {};
+    let byForm = false;
+    let svgel;
+    let pg;
+    const lbl1 = document.getElementById("lbl1");
+    const lbl2 = document.getElementById("lbl2");
+    const list = document.getElementById("itemlist");
+    const lastestnud = document.getElementById("lastestnud");
+    const showAllHiddenBtn = document.getElementById("btnShowAll");
+    const showHiddenBtn = document.getElementById("btnShow");
+    const showLastHiddenBtn = document.getElementById("btnShowLast");
+    const hideAllBtn = document.getElementById("btnHide");
+    const btnTop = document.getElementById("curBtnTop");
+
+    let whn = screen.height * (mob ? 0.35 : (screen.height < 900 ? 0.5 : 0.56));
+    let wdn = 0.67 * screen.width;
+    wdn = Math.round(wdn);
+    whn = Math.round(whn);
+
+     
+
+    const divs = document.getElementsByClassName("divAll");
+
+    for (let dv of divs) {
+        dv.style.width = wdn + "px";
+        dv.style.height = whn + "px";
+        dv.style.margin = "0 auto";
+    }
+    ln.style.width = (wdn - 56) + "px";
+ 
+
+
+ 
+    
+
+
+    const ticklineels = document.getElementsByClassName("tickline");
+    const impticklineels = document.getElementsByClassName("imptickline");
+    const ticklinelblels = document.getElementsByClassName("ticklinelbl");
+    const impticklinelblels = document.getElementsByClassName("impticklinelbl");
+
+
+    for (let tl of ticklineels) {
+        tl.style.borderLeft = "5px solid #ffffff";
+    }
+ 
+
+
+    function savequestion() {
+
+        const step = "{{cur_step}}";
+
+        let saveData = new FormData();
+        const propName = document.getElementById("propName").value;
+        saveData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        saveData.append('step', step); 
+        saveData.append('index', curIndex);
+        saveData.append('thirdChosen1', thirdChosen1);
+        saveData.append('thirdChosen2', thirdChosen2);
+        saveData.append('thirdChosen3', thirdChosen3);
+        saveData.append('prop1', prop1);
+        saveData.append('prop2', prop2);
+        saveData.append('prop3', prop3);
+        saveData.append('propName', propName);
+        navigator.sendBeacon('{% url "estpeople:savequestion" %}', saveData);
+
+    }
+
+
+
+    function savesettings() {
+
+        let saveData = new FormData();
+        saveData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        saveData.append('imageindex', document.getElementById('selectImg').selectedIndex);
+        saveData.append('color', document.getElementById('backColorInput').value);
+        saveData.append('opacity', document.getElementById('opacityInput').value);
+        saveData.append('speed', document.getElementById('speedInput').value);
+        saveData.append('fontcolor', document.getElementById('fontColorInput').value);
+        saveData.append('ticklineColor', document.getElementById('ticklineColor').value);
+        saveData.append('impticklineColor', document.getElementById('impticklineColor').value);
+        saveData.append('ticklineLblColor', document.getElementById('ticklineLblColor').value);
+        saveData.append('impticklineLblColor', document.getElementById('impticklineLblColor').value); 
+        navigator.sendBeacon('{% url "estpeople:savesettings" %}', saveData);
+    }
+
+
+
+    document.getElementById('selectImg').selectedIndex = {{ data.background_image_index }};
+    document.getElementById('backColorInput').value = "{{ data.background_color }}";
+    document.getElementById('opacityInput').value = {{ data.backgruond_opacity }};
+    document.getElementById('fontColorInput').value = "{{ data.fontcolor }}"; 
+    document.getElementById('ticklineColor').value = "{{ data.tickline_color }}"; 
+    document.getElementById('impticklineColor').value = "{{ data.imptickline_color }}"; 
+    document.getElementById('ticklineLblColor').value = "{{ data.tickline_lbl_color }}"; 
+    document.getElementById('impticklineLblColor').value = "{{ data.imptickline_lbl_color }}"; 
+    document.getElementById('speedInput').value = "{{ data.speed }}".replace(",", "."); 
+    let speedChange = +"{{ data.speed_change }}" * 1000;
+
+    selectColorChange();
+    selectImgChange();
+
+    document.getElementById("btnsReadyDiv").style.width = wdn + "px"
+    document.getElementById("btnsReadyDiv1").style.width = wdn + "px";
+
+    for (let ell of document.getElementsByClassName("liisf")) {
+        
+        
+        if (mob) { 
+
+            ell.insertBefore(document.createElement("br"), ell.childNodes[2]);
+
+        }
+        ell.style.width = wdn + "px";
+        ell.style.marginTop = "10px";
+    }
+
+
+    const dvbtn = document.getElementById("dvbtn");
+    dvbtn.style.width = wdn + "px";
+    dvbtn.style.margin = "0 auto";
+    dvbtn.style.marginTop = "5px";
+
+    const leftbtn = document.getElementById("left");
+    const rightbtn = document.getElementById("right");
+
+    let curIndex = {{page.index}};
+
+    if (mob) {
+        leftbtn.style.left = "0";
+        rightbtn.style.right = "0";
+    }
+    else {
+        leftbtn.style.left = "50px";
+        rightbtn.style.right = "50px";
+    }
+
+    
+
+    
+
+    {% if cur_step > 10 %}
+    leftbtn.hidden = rightbtn.hidden = tblq.hidden = listqDiv.hidden = questLbl1.hidden = true;
+    questLbl2.innerHTML = "Введите качество в текстовое поле ниже";
+    document.getElementById("inputProp").value = prop1;
+    inputchanged();
+    
+     
+    {% endif %}
+
+    function updateQuestions() {
+        
+        
+        let pn = "";
+
+        if (timerShowEst)
+            clearTimeout(timerShowEst); 
+         
+        
+
+        
+        if (curIndex == 0) {
+
+            man1 = '{% if page.first_item1 %}{{page.first_item1}}{% else %}{{page.first1}}{% endif %}';
+            man2 = '{% if page.second_item1 %}{{page.second_item1}}{% else %}{{page.second1}}{% endif %}';
+            man3 = '{% if page.third1 == "" %}{{""}}{% else %}{% if page.third_item1 %}{{page.third_item1}}{% else %}{{page.third1}}{% endif %}{% endif %}';
+            twoLike = "{{page.two_like1}}" == "True";
+            idx = thirdChosen1;
+            document.getElementById("inputProp").value = pn = prop1;
+            inputchanged();
+
+            
+            leftbtn.disabled = true;
+            rightbtn.disabled = false;
+
+        }
+        else if (curIndex == 1) {
+
+            man1 = '{% if page.first_item2 %}{{page.first_item2}}{% else %}{{page.first2}}{% endif %}';
+            man2 = '{% if page.second_item2 %}{{page.second_item2}}{% else %}{{page.second2}}{% endif %}';
+            man3 = '{% if page.third2 == "" %}{{""}}{% else %}{% if page.third_item2 %}{{page.third_item2}}{% else %}{{page.third2}}{% endif %}{% endif %}';
+            twoLike = "{{page.two_like2}}" == "True";
+            idx = thirdChosen2;
+            
+            document.getElementById("inputProp").value = pn = prop2;
+            inputchanged();
+            
+            leftbtn.disabled = false;
+            rightbtn.disabled = false;
+
+        }
+        else { 
+
+            man1 = '{% if page.first_item3 %}{{page.first_item3}}{% else %}{{page.first3}}{% endif %}';
+            man2 = '{% if page.second_item3 %}{{page.second_item3}}{% else %}{{page.second3}}{% endif %}';
+            man3 = '{% if page.third3 == "" %}{{""}}{% else %}{% if page.third_item3 %}{{page.third_item3}}{% else %}{{page.third3}}{% endif %}{% endif %}';
+            twoLike = "{{page.two_like3}}" == "True";            
+            idx = thirdChosen3;
+            
+            document.getElementById("inputProp").value = pn = prop3;
+            inputchanged();
+
+            
+            leftbtn.disabled = false;
+            rightbtn.disabled = true;
+
+        }
+
+        if (man3 == "") {
+
+            listqDiv.hidden = true;
+            qinputDiv.hidden = false;
+            questLbl1.hidden = true;
+            questLbl2.hidden = false;
+            
+
+            if (twoLike) 
+                questLbl2.innerHTML = quest2_2_sim;
+            else                
+                questLbl2.innerHTML = quest2_2_dif;
+
+
+            let ul = document.getElementById("leftList");
+            ul.innerHTML = "";
+            let li=document.createElement('li');
+            ul.appendChild(li);
+            li.innerHTML= man1;
+            let ulr = document.getElementById("rightList");
+            ulr.innerHTML = "";
+            li=document.createElement('li');
+            ulr.appendChild(li);
+            li.innerHTML= man2;
+
+        }
+        else {
+
+            questLbl1.innerHTML = quest1_3;
+            
+            listqDiv.hidden = false;
+            qinputDiv.hidden = true;
+            questLbl1.hidden = false;
+            questLbl2.hidden = true;
+            
+            document.getElementById("lbldf1").innerHTML = document.getElementById("lbldf1").innerHTML.split(">")[0] + "> " + man1;
+            document.getElementById("lbldf2").innerHTML = document.getElementById("lbldf2").innerHTML.split(">")[0] + "> " + man2;
+            document.getElementById("lbldf3").innerHTML = document.getElementById("lbldf3").innerHTML.split(">")[0] + "> " + man3;
+
+            
+
+
+            document.getElementById("diffrd1").checked = false;
+            document.getElementById("diffrd2").checked = false;
+            document.getElementById("diffrd3").checked = false;
+
+            if (idx == 0) {
+                document.getElementById("diffrd1").checked = true;
+            } 
+            if (idx == 1) {
+                document.getElementById("diffrd2").checked = true;
+            } 
+            if (idx == 2) {
+                document.getElementById("diffrd3").checked = true;
+            }
+
+            if (idx != -1) {
+                rbc();
+            }
+
+
+
+
+        } 
+
+        if (saveqTimer)
+            clearTimeout(saveqTimer);
+        if (pn != "")
+            saveqTimer = setTimeout(savequestion, doneTypingInterval);
+    }
+
+
+    
+
+    function rbc() { 
+        
+        
+        if (timerShowEst)
+            clearTimeout(timerShowEst); 
+
+        if (document.getElementById("diffrd1").checked) {
+            idx = 0;
+            firstInPair = man2;
+            secondInPair = man3;
+            notInPair = man1;
+        }
+        if (document.getElementById("diffrd2").checked) {
+            idx = 1;
+            firstInPair = man1;
+            secondInPair = man3;
+            notInPair = man2;
+        }
+        if (document.getElementById("diffrd3").checked) {
+            idx = 2;
+            firstInPair = man1;
+            secondInPair = man2;
+            notInPair = man3;
+
+        }
+
+
+        if (curIndex == 0) {
+
+            thirdChosen1 = idx;
+        }
+        else if (curIndex == 1) {
+
+            thirdChosen2 = idx;
+
+        } else {
+
+            thirdChosen3 = idx;
+
+        }
+
+        questLbl2.innerHTML = quest2_3; 
+        questLbl2.hidden = false;
+        qinputDiv.hidden = false;
+
+        let ul = document.getElementById("leftList");
+        ul.innerHTML = "";
+        let li=document.createElement('li');
+        ul.appendChild(li);
+        li.innerHTML= firstInPair;
+        li=document.createElement('li');
+        ul.appendChild(li);
+        li.innerHTML= secondInPair;
+        let ulr = document.getElementById("rightList");
+        ulr.innerHTML = "";
+        li=document.createElement('li');
+        ulr.appendChild(li);
+        li.innerHTML= notInPair;
+
+        const val = document.getElementById("inputProp").value.trim(); 
+
+        if (saveqTimer)
+            clearTimeout(saveqTimer);
+        if (val != "")
+            saveqTimer = setTimeout(savequestion, doneTypingInterval);
+    }
+
+    function leftbtnclick() {
+
+        if (curIndex > 0)
+            curIndex--;
+        updateQuestions();
+    }
+
+    function rightbtnclick() {
+
+        if (curIndex < 2)
+            curIndex++;
+        updateQuestions();
+    }
+
+    {% if cur_step <= 10 %}
+    updateQuestions();
+    {% endif %}
+
+
+    
+
+    
+
+    function editQuestText(idx) {
+
+
+
+    }
+
+    // const dvbtns = document.getElementById("dbtns");
+    // dvbtns.style.width = wdn + "px";
+    // dvbtns.style.margin = "0 auto";
+
+    
+
+    
+    
+    list.children[0].children[0].style.fontWeight = "bold";
+
+    function estChanged(est, id) { 
+        if (timerShowEst)
+            clearTimeout(timerShowEst); 
+
+        const lelems = list.children;
+        for (lelem of lelems)
+            lelem.children[0].style.fontWeight = "normal";
+        list.prepend(document.getElementById("li-" + id));
+        list.children[0].children[0].style.fontWeight = "bold";
+
+        document.getElementById("est-" + id).value = est; 
+        let linnn = document.getElementById("estline-" + id);
+        linnn.value =  est + " " == " " ? 0 : est;
+        linnn.style.opacity = est + " " == " " ? 0.3 : 1;
+
+    }
+
+    function estlineChanged(el) { 
+        document.getElementById('inputProp').blur();
+        if (timerShowEst)
+            clearTimeout(timerShowEst); 
+
+        const lelems = list.children;
+        for (lelem of lelems)
+            lelem.children[0].style.fontWeight = "normal";
+        const id = el.id.split("-")[1];
+        
+        el.style.opacity = 1;
+        el.parentElement.children[0].style.fontWeight = "bold";
+        document.getElementById("est-" + id).value = el.value; 
+        moveToEstPerc(draggablesById[id], +el.value / 2 + 50, 100);
+    }
+
+    function estnudChanged(el, showCur=false) { 
+        document.getElementById('inputProp').blur();
+        if (timerShowEst)
+            clearTimeout(timerShowEst); 
+
+        if (showCur) {
+            const curMoving = lastEstimatedPl ? lastEstimatedPl : curPl;
+            moveToEstPerc(curMoving, +el.value / 2 + 50, 100);
+            return;
+        }
+
+        
+        const lelems = list.children;
+        for (lelem of lelems)
+            lelem.children[0].style.fontWeight = "normal";
+        const id = el.id.split("-")[1];
+         
+        let linnn = document.getElementById("estline-" + id); 
+        linnn.value = el.value;
+        linnn.parentElement.children[0].style.fontWeight = "bold";
+        linnn.style.opacity = el.value + " " == " " ? 0.3 : 1;
+        moveToEstPerc(draggablesById[id], +el.value / 2 + 50, 100);
+    }
+
+    
+    function startlefthold() {
+        if (pressTimer)
+            clearTimeout(pressTimer);
+        movingleft = true;
+        movecuroneleft(); 
+        pressTimer = window.setTimeout(function(){
+            //console.log("presstimer " + new Date());
+            leftmovtimer = setInterval(movecuroneleft, 50); 
+        }, 250); 
+            
+    }
+
+    function stoplefthold() { 
+        movingleft = false;
+        if (leftmovtimer)
+            clearInterval(leftmovtimer);
+        if (pressTimer)
+            clearTimeout(pressTimer);
+    }
+
+    function startrighthold() {
+        if (pressTimer)
+            clearTimeout(pressTimer);
+        movingright = true;
+        movecuroneright(); 
+        pressTimer = window.setTimeout(function(){
+            rightmovtimer = setInterval(movecuroneright, 50); 
+        }, 250); 
+            
+    }
+
+    function stoprighthold() { 
+        movingright = false;
+        if (rightmovtimer)
+            clearInterval(rightmovtimer);
+        if (pressTimer)
+            clearTimeout(pressTimer);
+    }
+
+    function movecuroneleft() {
+        //console.log("enter move left " + new Date());
+        byForm = false;
+        if (!movingleft)
+            return; 
+        const valueCur = +lastestnud.value;
+        if (valueCur == -100)
+            return;
+        const curMoving = lastEstimatedPl ? lastEstimatedPl : curPl;
+        //console.log("start move left " + new Date());
+        moveToEstPerc(curMoving, (valueCur - 1) / 2 + 50, 100);
+        //console.log("end move left " + new Date());
+    }
+
+    function movecuroneright() {
+        byForm = false;
+        if (!movingright)
+            return;
+        const valueCur = +lastestnud.value;
+        if (valueCur == 100)
+            return;
+        const curMoving = lastEstimatedPl ? lastEstimatedPl : curPl;
+        moveToEstPerc(curMoving, (valueCur + 1) / 2 + 50, 100);
+    }
+
+
+
+    function setOnEst(dragEl, est) {
+        moveToEstPerc(dragEl, est / 2 + 50, 100, false, true);
+    }
+
+
+    
+
+    function checkShowHideBtnsVis() {
+
+        let ddchildren = document.getElementById("drdwn").children;
+        
+
+        showAllHiddenBtn.disabled = showHiddenBtn.disabled = ddchildren.length == 0;
+
+        showLastHiddenBtn.disabled = !(lastEstimatedPl  &&  lastEstimatedPl.element.classList.contains("svghidden")); 
+
+        
+        hideAllBtn.disabled = true;
+
+        for (let pd of arrPd) {
+            if (estsById[pd.element.dataset.itemid] != -1000 && !pd.element.classList.contains("svghidden"))  {
+                
+                hideAllBtn.disabled = false;
+                return;
+
+            }
+        } 
+
+
+    }
+
+    
+
+
+
+    function hideAll() {
+
+        document.getElementById("drdwn").innerHTML = '';
+        for (let pd of arrPd) {
+            if (estsById[pd.element.dataset.itemid] != -1000) {
+                hideElement(pd);                
+            }
+        }
+
+        checkShowHideBtnsVis();
+    }
+
+    function hideElement(pd) {
+        
+
+        pd.element.classList.remove("svgfade");
+        pd.element.classList.remove("svgfirst");
+        pd.element.classList.remove("svgnorm");
+        pd.element.classList.add("svghidden");
+
+
+        let element = document.createElement("button");
+        element.classList.add("dropdown-item");
+        element.setAttribute("type", "button");
+        element.innerHTML = pd.element.children[2].innerHTML;
+        element.addEventListener("click", showFromDropDown, false);
+        document.getElementById("drdwn").appendChild(element);
+
+        
+        checkShowHideBtnsVis();
+    }
+
+    function showElement(pd, setFirst=false) {
+
+
+        pd.element.classList.remove("svghidden");
+        pd.element.classList.remove("svgfade");
+        if (!setFirst) {
+            pd.element.classList.remove("svgfirst");
+            pd.element.classList.add("svgnorm");
+        }
+        else {
+            pd.element.classList.remove("svgnorm");
+            pd.element.classList.add("svgfirst");
+        }
+
+
+        let ddchildren = document.getElementById("drdwn").children;
+        let ddel;
+        for (let ddc of ddchildren) 
+            if (ddc.innerHTML == pd.element.children[2].innerHTML) {
+                ddel = ddc; 
+                break;
+            }
+
+        if (!ddel) 
+            return;
+
+        document.getElementById("drdwn").removeChild(ddel);
+
+        
+        checkShowHideBtnsVis();
+    }
+
+    function hideEstAndChooseCur(pd) {
+        
+
+        hideElement(pd); 
+        //console.log("choose cur " + new Date());
+        if (estsById[curPl.element.dataset.itemid] == -1000)
+            return;
+
+        for (let pd of arrPd) {
+            let key = pd.element.dataset.itemid;
+            if (estsById[key] == -1000) {
+                curPl = draggablesById[key];
+                curPl.element.classList.remove("svgnorm");
+                curPl.element.classList.remove("svgfade");
+                curPl.element.classList.remove("svghidden");
+                curPl.element.classList.add("svgfirst");
+                //console.log("check call from chooseCur");                
+                check(curPl);
+                return;
+            }
+        }
+
+
+    }
+
+ 
+
+
+
+    function showFromDropDown() {
+
+        byForm = false;
+ 
+
+        for (let oda of arrPd) {
+            let curnm = oda.element.children[2].innerHTML;
+            if (curnm == this.innerHTML && oda.element.classList.contains("svghidden")) {
+ 
+                document.getElementById("drdwn").removeChild(this);
+
+                curPl = oda;
+                curPl.element.classList.remove("svgnorm");
+                curPl.element.classList.remove("svgfade");
+                curPl.element.classList.remove("svghidden");
+                curPl.element.classList.add("svgfirst");
+                
+                check(curPl, false, false, false);
+
+                
+                checkShowHideBtnsVis();
+
+                return;
+
+
+            }
+        }
+    }
+
+    function showAll() {
+
+        document.getElementById("drdwn").innerHTML = '';
+        
+        for (let oda of arrPd) {
+            if (oda.element.classList.contains("svghidden")) {
+
+                oda.element.classList.remove("svghidden");
+                oda.element.classList.add("svgnorm"); 
+            }
+        }
+        checkShowHideBtnsVis();
+    }
+
+    function showLast() {
+ 
+        if (!lastEstimatedPl || !(lastEstimatedPl.element.classList.contains("svghidden")))
+            return;
+            
+        const dd = document.getElementById("drdwn");
+        let elm;
+        const nm = lastEstimatedPl.element.children[2].innerHTML;
+        
+        for (let ell of dd.children) {
+            if (ell.innerHTML == nm) {
+                elm = ell;
+                break;
+            }
+        }
+
+        
+        dd.removeChild(elm);
+
+        lastEstimatedPl.element.classList.remove("svgnorm");
+        lastEstimatedPl.element.classList.remove("svgfade");
+        lastEstimatedPl.element.classList.remove("svghidden");
+        lastEstimatedPl.element.classList.add("svgfirst");
+                
+        check(lastEstimatedPl, false, false, false);
+
+        
+
+                
+        checkShowHideBtnsVis();
+
+        return;
+    }
+
+
+    function saveitem(ob) {
+        const gp = getXYPercent(ob.left, ob.top);
+        const xp = gp[0];
+        const yp = gp[1];
+        const itemId = ob.element.dataset.itemid;
+        const step = "{{cur_step}}";
+        const name = ob.element.children[2].innerHTML;
+        const val = estsById[itemId];
+
+
+
+        let saveData = new FormData();
+        saveData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+        saveData.append('itemId', itemId);
+        saveData.append('step', step);
+        saveData.append('xp', xp);
+        saveData.append('yp', yp);
+        saveData.append('val', val);
+        navigator.sendBeacon('{% url "estpeople:saveitem" %}', saveData);
+    }
+
+
+    function clearDotVal(e) {
+        //document.getElementById("curdotvalnud").value = "";
+    }
+
+
+    function showDotVal(e) {
+
+        const { top, left, width, height } = ln.getBoundingClientRect();
+        y = top + height / 2;
+
+        if (Math.abs(y - e.y) > 25) {
+            document.getElementById("curdotvalnud").value = "";
+            document.body.style.cursor = 'default';
+
+            return;
+        }
+
+        document.body.style.cursor = 'pointer';
+
+
+        let rect = ln.getBoundingClientRect();
+        let xx = e.pageX + 2.5;
+ 
+
+        let est = ((xx - rect.x) / rect.width) * 200 - 100;
+        est = Math.round(est);
+
+        if (est<-100)
+            est = -100;
+        if (est > 100)
+            est = 100;
+
+
+        document.getElementById("curdotvalnud").value = est;
+    }
+
+
+    function moveCurToMouse(e) {
+
+
+        const { top, left, width, height } = ln.getBoundingClientRect();
+        y = top + height / 2;
+
+        if (Math.abs(y - e.y) > 25)
+            return;
+
+        document.getElementById('inputProp').blur();
+
+
+        if (!curPl)
+            return;
+
+        byForm = false;
+
+        let cursorX = e.pageX;
+        let cursorY = e.pageY;
+
+
+        
+
+        curPl.left = cursorX - (mob ? 18 : 25);
+        curPl.top = cursorY - (mob ? 30 : 35); 
+        for (let oda of arrPd) {
+            if (!oda.element.classList.contains("svghidden")) {
+                oda.element.classList.remove("svgfade");
+                oda.element.classList.remove("svgfirst");
+                oda.element.classList.add("svgnorm");
+            }
+        }
+
+        if (curPl.element.classList.contains("svghidden")) {
+
+            showElement(curPl, true);            
+        }
+
+ 
+
+        check(curPl);
+    }
+
+    let divTag = document.getElementById("estdiv");
+    divTag.addEventListener('click', moveCurToMouse); 
+    divTag.addEventListener('mousemove', showDotVal); 
+    divTag.addEventListener('mouseout', clearDotVal);  
+
+    function moveToPerc(draggable, xpercent, ypercent) {
+
+        xy = getXYFromPercent(xpercent, ypercent);
+
+
+        draggable.left = xy[0];
+        draggable.top = xy[1];
+ 
+        //console.log("check call from moveToPerc");    
+        check(draggable, false, true);
+    }
+
+
+    function getXToEst(est) {
+        const perc = est / 2 + 50;
+
+         let bodyRect = document.body.getBoundingClientRect(),
+             elemRect = ln.getBoundingClientRect(),
+             offsetx = elemRect.left - bodyRect.left;
+
+        return (perc / 100) * elemRect.width  + (mob ? 12.5 : 24) ;
+    }
+
+    
+    function moveToEstPerc(draggable, xpercent, ypercent, needsSave = true, immidHide = false) {
+
+        if (movingtimer1)
+            clearTimeout(movingtimer1);
+        if (movingtimer2)
+            clearTimeout(movingtimer2);
+
+    
+
+        xy = getXYFromEstPercent(xpercent, ypercent);
+
+        w = draggable.element.getBoundingClientRect().width;
+
+        for (let oda of arrPd) {
+            if (!oda.element.classList.contains("svghidden")) {
+                oda.element.classList.remove("svgnorm");
+                oda.element.classList.remove("svgfirst");
+                oda.element.classList.add("svgfade");
+            }
+        }
+
+        if (draggable.element.classList.contains("svghidden")) {
+
+            showElement(draggable);      
+
+        }
+        
+        draggable.element.classList.remove("svgnorm");
+        draggable.element.classList.remove("svgfade");
+        draggable.element.classList.add("svgfirst");
+
+
+        draggable.left = xy[0] - w / 2;
+        draggable.top = xy[1]; 
+        
+        //console.log("check call from moveToEstPerc");    
+        check(draggable, false, immidHide);
+
+
+        
+
+
+
+        movingtimer1 = setTimeout(function () {
+            
+            if (needsSave) {
+                
+                //console.log("check call from moveToEstPerc-timer");    
+                check(draggable, true);
+            }
+        }, 100);
+
+        movingtimer2 = setTimeout(() => {
+
+            for (let oda of arrPd) {
+                if (!oda.element.classList.contains("svghidden")) {
+                    oda.element.classList.remove("svgfade");
+                    oda.element.classList.remove("svgfirst");
+                    oda.element.classList.add("svgnorm");
+
+                    if (oda == curPl) {
+                        oda.element.classList.remove("svgnorm");
+                        oda.element.classList.add("svgfirst");
+                    }
+
+                }
+            }
+            
+        }, Math.min(800, speedChange));
+    }
+
+    
+ 
+ 
+ 
+
+    function check(draggable, needsSave = true, immidHide = false, changeCurAfterEst = true, usedotest = false) {
+
+
+        if (checkVTimer)
+            clearTimeout(checkVTimer);
+
+        curPl = draggable;
+        wrtInfo();
+        curPl.element.classList.remove("svgnorm");
+        curPl.element.classList.remove("svgfade");
+        curPl.element.classList.remove("svghidden");
+        curPl.element.classList.add("svgfirst");
+
+        let ll = draggable.element; 
+        let innr = ll.children[1];
+        let color = innr.style.fill;
+        let bordercolor = innr.style.stroke;
+
+
+        let sa = getYDistanceBetweenElements(ll, ln);
+        let curelemid = ll.dataset.itemid;
+
+        if (changeCurTimers[curelemid])
+            clearTimeout(changeCurTimers[curelemid]);
+
+        if (sa <= 25) {
+ 
+            let rect = ln.getBoundingClientRect();
+            let xx = getPositionAtCenter(ll).x; 
+            let est = ((xx - rect.x) / rect.width) * 200 - 100;
+            est = Math.round(est);
+
+            if (est<-100)
+                est = -100;
+            if (est > 100)
+                est = 100; 
+            
+            estsById[curelemid] = est;
+            if (!byForm)
+                estChanged(est, curelemid);
+
+
+            lastEstimatedPl = curPl;
+            lastestnud.value = est;
+            wrtInfo();
+
+            document.getElementById("btngoleft").disabled = est == -100;
+            document.getElementById("btngoright").disabled = est == 100;
+
+            //console.log("moved " + curelemid + "  at  " + new Date()); 
+            let curToChange = curPl;
+            if (changeCurAfterEst) {
+                if (changeCurTimers[curelemid])
+                    clearTimeout(changeCurTimers[curelemid]); 
+                changeCurTimers[curelemid] = setTimeout(() => hideEstAndChooseCur(curToChange), immidHide ? 10 : speedChange);
+            }
+            
+
+
+            if (!mob) {
+                let circle = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "circle"
+                );
+                circle.setAttribute("cx", "26");
+                circle.setAttribute("cy", "43");
+                circle.setAttribute("r", "21");
+                circle.setAttribute(
+                    "style",
+                    "fill: " + color + "; stroke: " + bordercolor + "; stroke-width: 5; fill-opacity: 0.7; stroke-opacity: 0.8; "
+                );
+                ll.replaceChild(circle, innr);
+            }
+        } else {
+
+            estsById[curelemid] = -1000;
+            if (!byForm)
+                estChanged("", curelemid);
+            if (!mob) {
+                let rect = document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "rect"
+                );
+                rect.setAttribute("x", "2");
+                rect.setAttribute("y", "18");
+                rect.setAttribute("width", "50");
+                rect.setAttribute("height", "50");
+                rect.setAttribute(
+                    "style",
+                    "fill: " + color + "; stroke: " + bordercolor + "; stroke-width: 5; fill-opacity: 0.7; stroke-opacity: 0.8; "
+                );
+                ll.replaceChild(rect, innr);
+            }
+
+            
+            
+        }
+
+        if (needsSave) {
+            
+            let ob = draggable;
+            if (objTimers[curelemid])
+                clearTimeout(objTimers[curelemid]);
+            objTimers[curelemid] = setTimeout(function () { saveitem(ob); }, 500);
+        }
+
+        updateButtonsBySavedState();
+        checkVTimer = setTimeout(checkShowHideBtnsVis, 100);  
+        
+    }
+    
+    function updateButtonsBySavedState() {
+        allSaved = document.getElementById("propName").value != "";
+        if (allSaved) {
+            for (let key in estsById)
+                if (estsById[key] == -1000) {
+                    allSaved = false;
+                    break;
+                }
+        }
+        document.getElementById("btnReady").disabled = !allSaved;
+         
+        document.getElementById("btnReady1").disabled = !allSaved; 
+
+        {% if cur_step < 11 and showEndBtn %}
+        document.getElementById("btnReadyAll").disabled = !allSaved;
+         
+        document.getElementById("btnReadyAll1").disabled = !allSaved; 
+        {% endif %}
+ 
+        
+        if (!allSaved) {
+            btnTop.classList.remove("btn-success");
+            btnTop.classList.add("btn-primary");
+        }
+        else if (isSaved) {
+            btnTop.classList.remove("btn-primary");
+            btnTop.classList.add("btn-success");
+        }
+
+    }
+
+    
+
+    
+
+
+
+    function getXYFromEstPercent(xpercent, ypercent) {
+
+        let bodyRect = document.body.getBoundingClientRect(),
+            elemRect = ln.getBoundingClientRect(),
+            offsetx = elemRect.left - bodyRect.left,
+            offsety = elemRect.top - bodyRect.top;
+
+        x = (xpercent / 100) * elemRect.width + offsetx;
+        y = (ypercent / 100) * elemRect.height + offsety;
+
+        return [x, y];
+    }
+
+
+
+
+    function getXYPercent(x, y) {
+        xP = 0;
+        yP = 0;
+
+        let bodyRect = document.body.getBoundingClientRect(),
+            elemRect = document.getElementById("estdiv").getBoundingClientRect(),
+            offsetx = elemRect.left - bodyRect.left;
+        offsety = elemRect.top - bodyRect.top;
+
+        xP = ((x - offsetx) / elemRect.width) * 100;
+        yP = ((y - offsety) / elemRect.height) * 100;
+
+
+        return [xP, yP];
+    }
+
+    function getXYFromPercent(xpercent, ypercent) {
+
+        let bodyRect = document.body.getBoundingClientRect(),
+            elemRect = document.getElementById("estdiv").getBoundingClientRect(),
+            offsetx = elemRect.left - bodyRect.left;
+        offsety = elemRect.top - bodyRect.top;
+
+        x = (xpercent / 100) * elemRect.width + offsetx;
+        y = (ypercent / 100) * elemRect.height + offsety;
+
+        return [x, y];
+    }
+
+    function createDraggables() {
+        {% for estim in estims %}
+
+            svgel = document.getElementById("svg{{estim.id}}");
+
+            pg = new PlainDraggable(svgel, {
+
+
+                onDrag: function () {
+                },
+                onMove: function () {
+                    for (let oda of arrPd) {
+                        
+                        if (!oda.element.classList.contains("svghidden")) {
+                            oda.element.classList.remove("svgnorm");
+                            oda.element.classList.remove("svgfirst");
+                            oda.element.classList.add("svgfade");
+                            
+                        }
+                    }
+
+                    curPl.element.classList.remove("svgnorm");
+                    curPl.element.classList.remove("svgfade");
+                    curPl.element.classList.remove("svghidden");
+                    curPl.element.classList.add("svgfirst");
+                    //console.log("check call from onMove");
+                    check(this, false);
+                },
+
+                onMoveStart: function () {
+                    curPl = this;
+                    
+                    byForm = false;
+                    document.getElementById('inputProp').blur();
+                    let ob = curPl;
+                    if (objTimers[this.element.dataset.itemid])
+                        clearTimeout(objTimers[this.element.dataset.itemid]);
+
+                    for (let oda of arrPd) {
+                        
+                        if (!oda.element.classList.contains("svghidden")) {
+                            oda.element.classList.remove("svgnorm");
+                            oda.element.classList.remove("svgfirst");
+                            oda.element.classList.add("svgfade");
+                            
+                        }
+                    }
+
+                    curPl.element.classList.remove("svgnorm");
+                    curPl.element.classList.remove("svgfade");
+                    curPl.element.classList.remove("svghidden");
+                    curPl.element.classList.add("svgfirst");
+
+
+
+                },
+
+
+                onDragEnd: function () {
+
+
+                    curPl = this;
+    
+
+                    for (let oda of arrPd) {
+                        if (!oda.element.classList.contains("svghidden")) {
+                            oda.element.classList.remove("svgfade");
+                            oda.element.classList.remove("svgfirst");
+                            oda.element.classList.add("svgnorm");
+                        }
+                    }
+
+                    curPl.element.classList.remove("svgfirst");
+                    curPl.element.classList.remove("svgfade");
+                    curPl.element.classList.remove("svghidden");
+                    curPl.element.classList.add("svgnorm");
+
+                    
+                    //console.log("check call from onDragEnd");
+                    check(this);
+                },
+            });
+
+            
+
+            estsById[pg.element.dataset.itemid] = {{estim.value}};
+            draggablesById[pg.element.dataset.itemid] = pg;
+
+            
+            if (pg.element.children[2].innerHTML == "{{page.cur_item.name}}") { 
+                    curPl = pg;
+                    curPl.element.classList.remove("svgnorm");
+                    curPl.element.classList.remove("svgfade");
+                    curPl.element.classList.remove("svghidden");
+                    curPl.element.classList.add("svgfirst");
+                    wrtInfo();
+                    check(curPl, false, true, false);
+            }
+            
+    
+            {% if estim.value != -1000 %}
+            setOnEst(pg, {{estim.value}});
+            {% elif estim.x != -1000 and estim.y != -1000 %}
+            moveToPerc(pg, parseFloat("{{estim.x}}".replace(',', '.')), parseFloat("{{estim.y}}".replace(',', '.'))); 
+            {% endif %}
+
+            if (!curPl) {
+                curPl = pg;
+                curPl.element.classList.remove("svgnorm");
+                curPl.element.classList.remove("svgfade");
+                curPl.element.classList.remove("svghidden");
+                curPl.element.classList.add("svgfirst");
+                wrtInfo();
+                check(curPl, false, true, false);
+            }
+
+            arrPd.push(pg);
+            
+        {% endfor %}
+
+
+        
+
+        setTimeout(checkShowHideBtnsVis, 100);  
+        setTimeout(checkShowHideBtnsVis, 1100);  
+        setTimeout(checkShowHideBtnsVis, 2100); 
+        setTimeout(checkShowHideBtnsVis, 3100); 
+        setTimeout(checkShowHideBtnsVis, 4100); 
+        
+
+    }
+
+    function beforesubmit() {
+        if (!allSaved) {
+            if (!confirm('Этот шаг пройден не полностью и не будет учтен при обработке результатов. Вы действительно хотите завершить тестирование? Для завершения нажмите кнопку "ОК", а чтобы остаться на этом шаге - кнопку "Отмена"'))
+                return false;
+            document.getElementById("notSaved").value = "true";
+        }
+    }
+
+
+    function bringToTop(targetElement) {
+        // put the element at the bottom of its parent
+        let parent = targetElement.parentNode;
+        parent.appendChild(targetElement);
+    }
+
+    
+    function wrtInfo() { 
+
+        let nm1 = "", nm2 = "";
+        if (curPl)
+            nm1 = curPl.element.children[2].innerHTML;
+        if (lastEstimatedPl)
+            nm2 = lastEstimatedPl.element.children[2].innerHTML; 
+ 
+        lbl1.value =  nm1;
+        lbl2.value =  nm2;
+            
+    }
+
+
+    function getPositionAtCenter(element) {
+        const { top, left, width, height } = element.getBoundingClientRect();
+        return {
+            x: left + width / 2,
+            y: top + height / 2,
+        };
+    }
+
+    function getYDistanceBetweenElements(a, b) {
+        const aPosition = getPositionAtCenter(a);
+        const bPosition = getPositionAtCenter(b);
+
+
+        return Math.abs(aPosition.y - bPosition.y);
+    }
+
+    function getRandomColor() {
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    function invertColor(hex) {
+        if (hex.indexOf('#') === 0) {
+            hex = hex.slice(1);
+        }
+        // convert 3-digit hex to 6-digits.
+        if (hex.length === 3) {
+            hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+        }
+        if (hex.length !== 6) {
+            throw new Error('Invalid HEX color.');
+        }
+        // invert color components
+        let r = (Math.random(255)).toString(16),
+            g = (255 - parseInt(hex.slice(2, 4), 16)).toString(16),
+            b = (Math.random(255)).toString(16);
+        // pad each with zeros and return
+        return '#' + r + g + b;
+    }
+
+ 
+
+
+
+    function selectImgChange() {
+        if (saveTimer)
+            clearTimeout(saveTimer);
+        saveTimer = setTimeout(savesettings, doneTypingInterval);
+        const imgIndex = document.getElementById('selectImg').selectedIndex;
+        const divImg = document.getElementById("estdivIMG");
+        divImg.style.background = images[imgIndex];
+        divImg.style.backgroundSize = "cover";
+    }
+
+    
+
+    function selectColorChange() {
+        if (saveTimer)
+            clearTimeout(saveTimer);
+        saveTimer = setTimeout(savesettings, doneTypingInterval);
+        const color = document.getElementById('backColorInput').value;
+        const percopacity = document.getElementById('opacityInput').value;
+        const opacity = (100 - percopacity) / 100;
+        const speed = document.getElementById('speedInput').value;
+        document.getElementById('speedlbl').innerHTML = speed;
+        document.getElementById('opacitylbl').innerHTML = percopacity;
+        rgb = hexToRgb(color);
+        speedChange = speed * 1000;
+
+
+        const fontColor = document.getElementById('fontColorInput').value;
+        const ticklineColor = document.getElementById('ticklineColor').value;
+        const impticklineColor = document.getElementById('impticklineColor').value;
+        const ticklineLblColor = document.getElementById('ticklineLblColor').value;
+        const impticklineLblColor = document.getElementById('impticklineLblColor').value;
+        let els = document.getElementsByClassName("small");
+
+        for (let el of els)
+            el.style.fill = fontColor;
+
+        for (let el of ticklineels)
+            el.style.borderLeft = "5px solid " + ticklineColor;
+
+        for (let el of impticklineels)
+            el.style.borderLeft = "5px solid " + impticklineColor;
+
+        for (let el of ticklinelblels)
+            el.style.color = ticklineLblColor;
+
+        for (let el of impticklinelblels)
+            el.style.color = impticklineLblColor;            
+
+        document.getElementById("estdivLINE").style.backgroundColor = "rgba(" + rgb.r + ", " + rgb.g + ", " + rgb.b + ", " + opacity + ")";
+    }
+
+    function lineOpacityChange() {
+        const opacity = (100 - document.getElementById('opacityLine').value) / 100;
+        ln.style.backgroundColor = "rgba(253, 5, 5, " + opacity + ")";
+    }
+
+
+    function componentToHex(c) {
+        let hex = c.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+
+    function hexToRgb(hex) {
+        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+
+    
+
+    function showEst() {
+        document.getElementById("invdiv").scrollIntoView();
+    }
+
+    function checkProp(val) {
+
+        if (val == "")
+            return;
+        for (let i = 0; i < pageNames.length; i++)
+        {
+            if (pageNames[i].toLowerCase() == val.toLowerCase() && i != {{cur_step}})
+            {
+                let sts = "Качество '" + val + "' уже использовалось на шаге номер " + i + ". Пожалуйста, введите другое.";
+                {% if cur_step <= 10 %}
+                sts += " Можно выбрать другой вопрос (кнопки << и >> сверху)"
+                {% endif %}
+                alert(sts);
+                
+                if (timerShowEst)
+                    clearTimeout(timerShowEst); 
+                return;
+            }
+        }
+
+    }
+
+    function inputchanged() {
+        
+        
+        const val = document.getElementById("inputProp").value.trim(); 
+        document.getElementById("lblqa").innerHTML = document.getElementById("lblqa1").innerHTML = val;
+        document.getElementById("propName").value = val;
+
+
+        if (blurTimer)
+            clearTimeout(blurTimer);
+        blurTimer = setTimeout(() => document.getElementById('inputProp').blur(), 3000);
+        
+
+        if (checkPropTimer)
+            clearTimeout(checkPropTimer); 
+        checkPropTimer = setTimeout(() => checkProp(val), doneTypingInterval);
+
+        if (val != "")
+            btnTop.innerHTML = btnTop.innerHTML.split("-")[0] + " - " + val;
+        else
+            btnTop.innerHTML = btnTop.innerHTML.split("-")[0];
+        
+        if (curIndex == 0) {
+            prop1 = val;
+
+        } else if (curIndex == 1) {
+
+            prop2 = val;
+
+        } else if (curIndex == 2) {
+
+            prop3 = val;
+
+        }
+
+        
+        if (saveqTimer)
+            clearTimeout(saveqTimer); 
+        if (val != "")
+            saveqTimer = setTimeout(savequestion, doneTypingInterval);
+
+        if (timerShowEst)
+            clearTimeout(timerShowEst); 
+
+         
+        if (val != "") {
+            allDiv.hidden = false;
+            propSaved = true;            
+            timerShowEst = setTimeout(showEst, 4000);            
+        }
+
+        if (mob && !draggablesCreated && val != "") {
+        
+            let svgs = document.getElementsByTagName("svg");""
+
+            for (let svgele of svgs) {
+                svgele.setAttribute("width", "35px");
+                svgele.setAttribute("height", "47px");
+                svgele.children[0].setAttribute("x", "15px");
+                svgele.children[0].style.font = "italic 8px serif"
+                svgele.children[1].setAttribute("width", "25px");
+                svgele.children[1].setAttribute("height", "25px");
+            }
+
+            ln.style.left = "17.5px";
+            ln.style.bottom = "0.5px";
+            ln.style.width = (wdn - 35) + "px";
+
+            // if (screen.width < 800) {
+            //     document.getElementById("estdivIMG").hidden = true;
+            //     document.getElementById("dvtpox").hidden = true;
+            //     document.getElementById("btnsReadyDiv").hidden = true;
+            // }
+        }
+
+        if (!draggablesCreated && val != "") {
+            createDraggables(); 
+            document.getElementById("ulid").style.marginLeft = document.getElementById("showbtn").offsetLeft  + "px";
+            draggablesCreated = true;
+            for (let i = -100; i <= 100; i += 25) {  
+                const xcr = getXToEst(i) ;
+                const j = (i+100)/25;
+                ticklines[j].style.left = xcr + "px";
+                ticklinelbls[j].style.left = (xcr - (j < 4 ? 14 : (j == 4 ? 2 : 8))) + "px";
+            }
+
+        }
+
+        updateButtonsBySavedState();
+        
+        
+    } 
+
+    window.addEventListener('scroll', function(e) {
+        if (timerShowEst)
+            clearTimeout(timerShowEst);  
+    });
+
+
+    function changeUlMargin() {
+        document.getElementById("ulid").style.marginLeft = document.getElementById("showbtn").offsetLeft  + "px";   
+    };
+
+    function setChangeUlMarginTimer() {
+        if (changeUlMarginTimer1)
+            clearTimeout(changeUlMarginTimer1);
+        if (changeUlMarginTimer2)
+            clearTimeout(changeUlMarginTimer1);
+        if (changeUlMarginTimer3)
+            clearTimeout(changeUlMarginTimer1);
+        changeUlMarginTimer1 = setTimeout(changeUlMargin, 100);
+        changeUlMarginTimer2 = setTimeout(changeUlMargin, 300);
+        changeUlMarginTimer3 = setTimeout(changeUlMargin, 1000);
+    }
+
+    (function($) {
+
+        "use strict";
+
+
+        var fullHeight = function() {
+ 
+            $(window).resize(function() { 
+                setChangeUlMarginTimer();
+            });
+
+
+        }; 
+        fullHeight();
+        $('#sidebarCollapse').on('click', function () { 
+            setChangeUlMarginTimer();
+        });
+
+    })(jQuery);
+
+
+    {% endif %}
+
+
+</script>
+
+
+{% endblock %}

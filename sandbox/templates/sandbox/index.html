@@ -1,0 +1,135 @@
+{% extends 'main/index.html' %}
+
+{% block content %} 
+<div>
+<!-- {{nt}}<br>
+    <small>{{kmo_model2}}</small>   -->
+{% autoescape off %}
+<!-- <h3>Исходная таблица качеств</h3>
+{{dfhtml}}
+<a href="/static/rep_grid{{id}}.xlsx">Скачать как таблицу Excel</a>
+<br><hr> {{dfchtml}}<br><hr>  -->
+<button id="showbtn" type="button" style="margin-top: 15px; margin-bottom: 15px;" data-toggle="collapse" class="mrg btn btn-light" data-target="#menudiv">Доп. инфо</button>
+<div id="menudiv" class="collapse" style="margin-top: 15px; text-align: center !important;"> 
+    <small>{{kmo_model2}}</small> <br>
+    <small>{{dt}}</small> 
+    <h3>Исходная таблица качеств</h3>
+{{dfhtml}}
+<a href="/static/rep_grid{{id}}.xlsx">Скачать как таблицу Excel</a>
+<br><hr> <h3>Она же после scaling</h3>{{dfsc}}<br><hr> 
+<br><hr> <h3>Ее описание</h3>{{dfdhtml}}<br><hr> 
+<br><hr> <h3>Таблица корреляции качеств</h3>{{dfchtml}}<br><hr> 
+<br><hr> <h3>Таблица собственных значений ФА</h3>{{un2}}<br><hr> 
+</div>
+
+<form  onsubmit="return beforesubmit();" action="" method="post" role="form">
+    {% csrf_token %}
+    <datalist id="tickmarks"  >
+        <option value="-2" label="-">
+        <option value="-1" >
+        <option value="0" label="0">
+        <option value="1" >
+        <option value="2" label="+">
+      </datalist>
+{{allhtml}}
+<button class='btn btn-success'>Готово</button>
+</form>
+<br><hr> {{pl}}
+{% endautoescape %}  
+
+
+<!-- {% autoescape off %}
+{{dfchtml}}
+{% endautoescape %}  
+<br><hr> 
+{% autoescape off %}
+{{dffa}}
+{% endautoescape %}  
+<br><hr> 
+{% autoescape off %}
+{{dffavm}}
+{% endautoescape %}  
+<br><hr> 
+{% autoescape off %}
+{{tdfa}}
+{% endautoescape %}  
+<br><hr> 
+{% autoescape off %}
+{{tdfavm}}
+{% endautoescape %}  
+<br><hr>
+{% autoescape off %}
+{{un1}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{un2}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{mlb2}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{mlb3}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{mlb4}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew1}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew2}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew3}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew4}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew5}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew6}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew7}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew8}}
+{% endautoescape %}
+<br><hr>
+{% autoescape off %}
+{{fvnew9}}
+{% endautoescape %}
+<br><hr> --> 
+</div>
+{% endblock %} 
+{% block js %}
+<script>
+
+document.getElementById("editpeoplea").setAttribute("href", "/addpeople");
+document.getElementById("estpeoplea").setAttribute("href", "/estpeople/");
+document.getElementById("showresultsa").setAttribute("href", "#");
+$("#estpeopleli").removeClass("active");
+$("#showresultsli").addClass("active");
+$("#editpeopleli").removeClass("active");
+
+</script>
+
+{% endblock %}

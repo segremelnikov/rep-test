@@ -1,0 +1,452 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:100,200,300,300i,400,500,600,700,800,900');
+
+
+/*------------------------------------------------------------------
+    SKELETON
+-------------------------------------------------------------------*/
+
+body {
+    color: #999999;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.80857;
+}
+
+body.demos .section-title img {
+    max-width: 280px;
+    display: block;
+    margin: 10px auto;
+}
+
+body.demos .service-widget h3 {
+    border-bottom: 1px solid #ededed;
+    font-size: 18px;
+    padding: 20px 0;
+    background-color: #ffffff;
+}
+
+body.demos .service-widget {
+    margin: 0 0 30px;
+    padding: 30px;
+    background-color: #fff
+}
+
+body.demos .container-fluid {
+    max-width: 1080px
+}
+
+a {
+    color: #1f1f1f;
+    text-decoration: none !important;
+    outline: none !important;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    letter-spacing: 0;
+    font-weight: normal;
+    position: relative;
+    padding: 0 0 10px 0;
+    font-weight: normal;
+    line-height: 120% !important;
+    color: #333333;
+    margin: 0
+}
+
+h1 {
+    font-size: 24px
+}
+
+h2 {
+    font-size: 22px
+}
+
+h3 {
+    font-size: 18px
+}
+
+h4 {
+    font-size: 16px
+}
+
+h5 {
+    font-size: 14px
+}
+
+h6 {
+    font-size: 13px
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {
+    color: #212121;
+    text-decoration: none!important;
+    opacity: 1
+}
+
+h1 a:hover,
+h2 a:hover,
+h3 a:hover,
+h4 a:hover,
+h5 a:hover,
+h6 a:hover {
+    opacity: .8
+}
+
+a {
+    color: #222222;
+    text-decoration: none;
+    outline: none;
+}
+
+a,
+.btn {
+    text-decoration: none !important;
+    outline: none !important;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+.btn-custom {
+    margin-top: 20px;
+    background-color: transparent !important;
+    border: 2px solid #ddd;
+    padding: 12px 40px;
+    font-size: 16px;
+}
+
+.lead {
+    font-size: 18px;
+    line-height: 30px;
+    color: #767676;
+    margin: 0;
+    padding: 0;
+}
+
+blockquote {
+    margin: 20px 0 20px;
+    padding: 30px;
+}
+
+ul, li, ol{
+	margin: 0px;
+	list-style: none;
+	padding: 0px;
+}
+
+html, body{
+	width: 100%;
+	height: 100%;
+}
+
+.main-form-box{
+	background: url(../imageslg/bg_01.jpg) no-repeat center;
+	background-size: cover;
+	height: 100%;
+	overflow: visible;
+	position: relative;
+	background-position: center;
+	background-size: cover;
+	display: table;
+	position: relative;
+	width: 100%;
+}
+
+.md-form{
+	display: table-cell;
+	vertical-align: middle;
+}
+.logo-top{
+	padding: 30px 0px;
+	text-align: center;
+	background: rgba(255,255,255,0.8) !important;
+	color: rgb(255, 255, 255) !important;
+}
+
+.azz {
+	background: antiquewhite!important;
+	color: black !important;
+	text-align:justify !important;
+	text-justify: inter-word !important;
+	padding-right: 20px !important;
+	padding-left: 20px !important;
+
+}
+
+
+#particles-js .particles-js-canvas-el{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 0;
+	left: 0px;
+	top: 0px;
+}
+
+.panel-login {
+	position: relative;
+	z-index: 1;
+	border: 1px solid rgb(77,55,200,0.8);
+	-webkit-box-shadow: 0px 2px 3px 0px rgba(255,255,255,0.8);
+	-moz-box-shadow: 0px 2px 3px 0px rgba(255,255,255,0.8);
+	box-shadow: 0px 2px 3px 0px rgba(255,255,255,0.8);
+}
+.panel-heading {
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+.panel-login>.panel-heading {
+	color: #db3387;
+	background: rgba(255,255,255,0.8);
+	border-color: rgba(46, 22, 184, 0.8);
+	text-align:center;
+	position: relative;
+	border-radius: 0;
+}
+
+.panel-login>.panel-heading a{
+	text-decoration: none;
+	color: #f0f1f7;
+	font-weight: bold;
+	font-size: 15px;
+	background: rgba(39, 104, 165, 0.8);
+	padding: 10px 16px;
+	border-radius: 50px;
+	display: block;
+	-webkit-transition: all 0.8s linear;
+	-moz-transition: all 0.8s linear;
+	transition: all 0.8s linear;
+}
+
+.panel-login>.panel-heading a:hover{
+	background: rgba(5, 70, 240, 0.9);
+	font-size: 15px;
+}
+
+.panel-login>.panel-heading a.active{
+	color: #3c4775;
+	background: #ffffff;
+	font-size: 15px;
+}
+
+.panel-login .panel-body{
+	padding: 15px;
+	background: rgba(255,255,255,0.8);
+}
+.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+	padding: 16px 20px 16px 50px;
+	border: 1px solid rgb(77,55,200,0.8);
+	font-size: 16px;
+	border-radius: 50px;
+	-webkit-transition: all 0.8s linear;
+	-moz-transition: all 0.8s linear;
+	transition: all 0.8s linear;
+}
+.panel-login input:hover,
+.panel-login input:focus {
+	outline:none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border-color: rgba(5, 70, 240);
+}
+
+.panel-login .form-group.addcolor .icon-lp{
+	color: rgb(77,55,200,0.8);
+}
+
+
+.forgot-password {
+	text-decoration: underline;
+	color: #000000;
+}
+.forgot-password:hover,
+.forgot-password:focus {
+	text-decoration: underline;
+	color: #666;
+}
+
+.btn-login,
+.btn-register {
+	background-color: rgb(24, 113, 172);
+	outline: none;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-radius: 50px;
+}
+.btn-login:hover,
+.btn-login:focus,
+.btn-register:hover,
+.btn-register:focus {
+	color: #fff;
+	background-color: rgb(6, 12, 207);
+	border-color: #1a0222;
+}
+
+.btn-send {
+	background-color: rgb(229, 230, 233);
+	outline: none;
+	color: rgb(75, 70, 70);
+	font-size: 14px;
+	height: auto;
+	font-weight: normal;
+	padding: 14px 0;
+	text-transform: uppercase;
+	border-radius: 50px;
+	border: 1px solid rgb(77,55,200,0.8);
+}
+.btn-send:hover,
+.btn-send:focus {
+	color: rgb(75, 70, 70);
+	background-color: rgb(192, 192, 211);
+	border-color: #1a0222;
+}
+
+form .form-group{
+	position: relative;
+}
+
+form .form-group .icon-lp{
+	position: absolute;
+	top: 10px;
+	left: 18px;
+	margin: 0px;
+	font-size: 21px;
+}
+
+.or{
+	position: absolute;
+	top: 15px;
+	left: 248px;
+	width: 40px;
+	height: 40px;
+	color: #ffffff;
+	background: #000000;
+	border-radius: 50%;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+	line-height: 40px;
+	text-align: center;
+}
+
+.panel-login .panel-body form ul{
+	display: block;
+	text-align: center;
+	margin: 30px 0px;
+}
+.panel-login .panel-body form ul li{
+	display: inline-block;
+	margin: 0px 5px;
+}
+
+.panel-login .panel-body form ul li .fb{
+	background: #1a4ebe;
+	display: block;
+	margin: 0 auto;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 0;
+	border-radius: 100px;
+	color: white;
+	font-size: 16px;
+	padding: 6px 12px;
+	cursor: pointer;
+	transition: all 150ms ease-out;
+}
+.panel-login .panel-body form ul li .fb i{
+	padding-right: 10px;
+}
+.panel-login .panel-body form ul li .fb:hover{
+	background: #2b4e99;
+	border: #000000;
+}
+.panel-login .panel-body form ul li .tw{
+	background: #00aced;
+	display: block;
+	margin: 0 auto;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	border: 0;
+	border-radius: 100px;
+	color: white;
+	font-size: 16px;
+	padding: 6px 12px;
+	cursor: pointer;
+	transition: all 150ms ease-out;
+}
+.panel-login .panel-body form ul li .tw i{
+	padding-right: 10px;
+}
+.panel-login .panel-body form ul li .tw:hover{
+	background: rgb(77,55,200,0.8);
+}
+.footer-company-name{
+	color: rgba(240,240,240);
+	text-align: center;
+	margin: 0px;
+	padding: 20px 0px;
+	position: relative;
+	z-index: 1;
+}
+
+.footer-company-name a{
+	color: rgba(222,200,222);
+}
+.footer-company-name a:hover{
+	color: #ffffff;
+}
+
+.disabled {
+	pointer-events: none;
+	color: darkgray !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

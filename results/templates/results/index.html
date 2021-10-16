@@ -1,0 +1,38 @@
+{% extends 'main/index.html' %}
+
+
+{% block content %}
+<div id="navdiv" style="text-align: center; ">
+    <h2 >Просмотр резульатов (раздел в разработке)</h2>
+
+    <br><br><br>
+
+    <div style="font-size: larger; text-align:center;">
+{% if passed %}
+
+Благодарим за участие!
+
+Предварительная версия результатов доступна <a href="/plot/{{user.id}}">по этой ссылке</a>
+{% else %}
+
+Вы еще не прошли тест
+
+{% endif %}
+</div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script> 
+
+document.getElementById("editpeoplea").setAttribute("href", "/addpeople");
+document.getElementById("estpeoplea").setAttribute("href", "/estpeople/");
+document.getElementById("showresultsa").setAttribute("href", "#");
+$("#estpeopleli").removeClass("active");
+$("#showresultsli").addClass("active");
+$("#editpeopleli").removeClass("active");
+
+</script>
+
+{% endblock %}

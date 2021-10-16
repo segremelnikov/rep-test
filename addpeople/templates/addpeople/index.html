@@ -1,0 +1,305 @@
+{% extends 'main/index.html' %}
+
+
+{% block style %}
+
+<style>
+    body {
+        caret-color: transparent;
+        
+        transform-style: preserve-3d;
+    }
+
+
+    ol {
+        margin-left: 20px;
+        list-style-type: decimal;
+        list-style-position: outside;
+        counter-reset: section;
+        font-size: large;
+        padding-left: 3px;
+        column-count: 2;
+        column-gap: 20px;
+        word-break: break-all;
+    }
+
+    ol li {
+        padding-left: 10px;
+        padding-bottom: 10px;
+        margin-left: 30px;
+        margin-bottom: 7px;
+        position: relative;
+        font-size: large;
+    }
+
+    p {
+        text-indent: 20px;
+        /* Отступ первой строки в пикселах */
+    }
+
+    .pseudobtn:hover {
+        cursor: pointer;
+        opacity: 1;
+    }
+
+    .pseudobtn:hover {
+        opacity: 0.8;
+    }
+
+    .opch:hover {
+        opacity: 1;
+    }
+
+    .opch {
+        opacity: 0.92;
+    }
+
+    .noselect {
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Old versions of Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+                                        supported by Chrome, Edge, Opera and Firefox */
+    }
+
+    .readonlyf {
+        border-color:transparent;
+        outline: none;
+        caret-color: transparent !important;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %} 
+<div id="navdiv" style="text-align: center;">
+<h2 >Редактирование списка людей</h2> 
+<hr>
+<div id="descrdiv" style="font-size: larger; text-align:justify;">
+    <p>Введите в таблицу ниже от 12 до 24 людей (можно ввести их имена либо наименования - "мама", "муж" и т.д).   
+        Это могут быть как близкие Вам люди (ваши родственники,
+        друзья,
+        учителя, одноклассники, первая любовь, ...), так и не знакомые лично, но значимые для Вас (политики,
+        писатели,
+        ученые, музыканты,
+        актеры, исторические личности, персонажи из книг, кино, ...). Также по желанию можно ввести какие-то абстрактные образы
+        ("типичный творческий человек", "типичная москвичка" и т.п). Имя/наименование может содержать до 30 символов. Три человека уже введены - 
+        Вы сами, Вы в детсве и идеальный образ Вас (как Вы представляете себя в идеале, если бы не было никаких внутренних/внешних помех для его осуществления)</p>
+    <p>Для каждого человека введите цвет, который ассоциируется у Вас с ним. Квадрат такого цвета отображаться в дальнейшем на этапе оценки как символ этого человека.
+        Если человек не ассоциируется ни с каким цветом, оставьте серый - он считается "средним" цветом. Несколько человек вполне могут быть одного цвета.         
+    </p>
+    <p>По завершении ввода
+        нажмите кнопку "сохранить". Все записи с пустой строкой или строкой из одних пробелов в поле имени при нажатии
+        этой
+        кнопки будут удалены. Можно ввести меньше 12 людей и нажать "сохранить" - введенные люди сохранятся,
+        но страница оценки будет доступна только после ввода как минимум 12 людей (после ввода 12 и более людей и
+        нажатия "сохранить"
+        Вы автоматически будете перенаправлены на страницу оценки)</p>
+    <p>Если Вы вернулись на эту страницу после процедуры оценивания, редактирование имени/цвета не
+        изменит оценок человека (изменит только подпись и цвет), а удаление (в т.ч через сохранение после ввода пустого
+        имени)
+        безвозвратно удалит все оценки, будьте внимательны. Добавление/удаление людей не изменяет вопросы на уже открытых шагах оценки (вопросы генерируются при первом открытии шага на основании списка людей на тот момент и остаются неизменными)</p>
+</div>
+
+</div>
+<hr>
+<form id="addpeople-form" onsubmit="return beforesubmit();" action="" method="post" role="form">
+    {% csrf_token %}
+
+
+    <div><br>
+        <ol id="ol" class="noselect">
+            {% for i in n %}
+            <li class="opch">
+                <input type="text" id="{{i}}-name" name="{{i}}-name" maxlength="30"
+                    style="max-width: 170px; caret-color: black;" /> 
+
+                <input style="margin-left: 10px;" type="color" name="{{i}}-color" value="#808080" /> 
+
+                <i style="margin-left: 10px;" id="{{i}}-rem" class="fa fa-remove pseudobtn" title="удалить"
+                    onclick="deleteLi({{i}});"></i>
+            </li>
+            {% endfor %}
+        </ol>
+    </div>
+    <div style="text-align: center; "><br>
+        <button type="submit" class="btn btn-success" style="font-size: x-large;">Сохранить</button>
+    </div>
+
+</form> 
+{% endblock %}
+
+
+{% block js %}
+<script>
+
+
+    
+    const columnsCnt =  screen.width >= 1360 ? 3 : screen.width >= 800 ? 2 : 1;
+
+    const ols = document.getElementsByTagName("ol");
+    for (let ol of ols) {
+        ol.style.columnCount = columnsCnt;
+        //if (columnsCnt == 1 && screen.width >= 800)
+        //    ol.style.textAlign = "center";
+    }
+
+    if (columnsCnt == 1) {
+        let liss = document.getElementsByTagName("li");
+        for (let lii of liss) {
+            lii.style.marginLeft = "12px";
+            if (mob)
+                lii.style.marginTop = "30px";
+        }
+    }
+
+    document.getElementById("editpeoplea").setAttribute("href", "#");
+    document.getElementById("estpeoplea").setAttribute("href", "/estpeople/");
+    document.getElementById("showresultsa").setAttribute("href", "/results/");
+    $("#estpeopleli").removeClass("active");
+    $("#showresultsli").removeClass("active");
+    $("#editpeopleli").addClass("active");
+    const n = 24;
+
+    document.getElementById("0-name").setAttribute("readonly", "true");
+    document.getElementById("0-name").value = "я";
+    document.getElementById("1-name").setAttribute("readonly", "true");
+    document.getElementById("1-name").value = "я в детстве";
+    document.getElementById("2-name").setAttribute("readonly", "true");
+    document.getElementById("2-name").value = "я в идеале";
+    document.getElementById("0-name").classList.add("readonlyf");
+    document.getElementById("1-name").classList.add("readonlyf");
+    document.getElementById("2-name").classList.add("readonlyf");
+
+    document.getElementById("0-rem").setAttribute("disabled", "true");
+    document.getElementById("1-rem").setAttribute("disabled", "true");
+    document.getElementById("2-rem").setAttribute("disabled", "true");
+    document.getElementById("0-rem").setAttribute("hidden", "true");
+    document.getElementById("1-rem").setAttribute("hidden", "true");
+    document.getElementById("2-rem").setAttribute("hidden", "true");
+
+    
+
+
+    const listElements = document.getElementById("ol").children;
+    let i = 0;
+    let liChildren;
+    {% for item in items %}
+        liChildren = listElements[i].children;
+        liChildren[0].value = "{{item.name}}";
+        liChildren[0].setAttribute('name', liChildren[0].getAttribute('name') + '-id{{item.id}}');
+        
+
+        liChildren[1].value = "{{item.color}}";
+        liChildren[1].setAttribute('name', liChildren[1].getAttribute('name') + '-id{{item.id}}');
+        
+        i++;
+    {% endfor %}
+
+    
+    function deleteLi(i) {
+
+        clearEl(i);
+    }
+
+
+    function clearEl(i) {
+        const nameEl = listElements[i].children[0];
+        const colorEl = listElements[i].children[1];
+
+
+        nameEl.value = "";
+        colorEl.value = "#808080";
+
+        nameEl.setAttribute("name", i + "-name");
+        colorEl.setAttribute("name", i + "-color");
+    }
+
+    function defragEmpties() {
+
+
+        let curBad = 0;
+        while (true) {
+            while (curBad < n && listElements[curBad].children[0].value.trim() != "")
+                curBad++;
+            if (curBad == n)
+                return;
+            let curGood = curBad + 1;
+            while (curGood < n && listElements[curGood].children[0].value.trim() == "")
+                curGood++;
+            if (curGood == n) {
+                for (let i = curBad; i < n; i++) {
+                    clearEl(i);
+                }
+                return;
+            }
+            swapElems(curBad, curGood);
+            curBad++;
+        }
+    }
+
+    function swapElems(i, j) {
+
+        const nameEl = listElements[i].children[0];
+        const colorEl = listElements[i].children[1];
+
+        const nameElNext = listElements[j].children[0];
+        const colorElNext = listElements[j].children[1];
+
+        nameEl.value = nameElNext.value;
+        colorEl.value = colorElNext.value;
+
+        const splitEl = nameEl.getAttribute("name").split("-");
+        const splitElNext = nameElNext.getAttribute("name").split("-");
+        const id = splitElNext.length == 3 ? ("-" + splitElNext[2]) : "";
+
+        if (splitEl.length == 3) {
+            nameEl.setAttribute("name", i + "-name" + id);
+            colorEl.setAttribute("name", i + "-color" + id);
+        }
+
+        clearEl(j);
+    }
+
+    function checkDuplicates() {
+
+        for (let i = 0; i < n; i++) {
+            let curName = listElements[i].children[0].value;
+            if (curName == "")
+                continue;
+            for (let j = i + 1; j < n; j++) {
+                if (listElements[j].children[0].value.trim() == curName) {
+                    alert('Имя/наименование "' + curName + '" встречается более 1 раза. Исправьте это и нажмите "сохранить" снова');
+                    return false;
+                }
+            }
+        }
+        return true;
+
+    }
+
+    function beforesubmit() {
+
+        for (let i = 0; i < n; i++)
+            listElements[i].children[0].value = listElements[i].children[0].value.trim();
+        
+
+        if (!checkDuplicates()) {
+            return false;
+        }
+
+        defragEmpties();
+        return true;
+    }
+
+
+</script>
+{% endblock %}

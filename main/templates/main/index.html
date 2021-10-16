@@ -1,0 +1,232 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>{% block title %}Реп-тест Келли{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <!-- Site Icons -->
+  <link rel="shortcut icon" href="{% static 'imageslg/favicon.ico' %}" type="image/x-icon">
+  <link rel="apple-touch-icon" href="{% static 'imageslg/apple-touch-icon.png' %}">
+
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(76866115, "init", {
+       clickmap:true,
+       trackLinks:true,
+       accurateTrackBounce:true,
+       webvisor:true
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/76866115" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+  <style>
+    span.disabled {
+      cursor: default !important;
+
+      pointer-events: none !important;
+    }
+
+    span.disabled a {
+
+      color: rgba(121, 121, 121, 0.8) !important;
+
+    }
+  </style>
+  {% block style %}{% endblock %}
+</head>
+
+<body>
+
+  <div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar">
+      <div class="custom-menu">
+        <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <i class="fa fa-bars"></i>
+          <span class="sr-only">Toggle Menu</span>
+        </button>
+      </div>
+      <br>
+      <ul class="list-unstyled components mb-5">
+        <li id="editpeopleli">
+          <a id="editpeoplea" href="/addpeople/"><span class="fa fa-edit mr-3"></span>1. Редактировать список людей</a>
+        </li>
+        <li id="estpeopleli">
+          <span id="estpeoplespan"><a id="estpeoplea" href="/estpeople/"><span
+                class="fa fa-sort-alpha-asc mr-3"></span>2.
+              Оценить
+              людей</a></span>
+        </li>
+        <li id="showresultsli">
+          <span id="showresultsspan"><a id="showresultsa" href="/results/"><span
+                class="fa fa-line-chart mr-3"></span>3. Смотреть
+              результаты </a></span>
+        </li>
+        <li>
+          <a id="emls" href="mailto:kellyreptest@gmail.com"><span class="fa fa-envelope mr-3"></span>Сообщить о проблеме/предложении</a>
+        </li>
+        <li>
+          <a id="logout" href="/logout/"><span class="fa fa-sign-out mr-3"></span>Выйти ({{ user }})</a>
+        </li>
+         
+      </ul>
+
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5">
+      <div id="content" name="content">
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+
+  <script src="{% static 'jslg/jquery.min.js' %}"></script>
+  <script src="{% static 'js/popper.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/plaindraggable.js' %}"></script>
+
+
+  <script>
+
+
+ 
+
+
+    {% if not_added %}
+    var estpeoplespan = document.getElementById("estpeoplespan");
+    estpeoplespan.setAttribute("title", "Вы не заполнили список людей");
+    estpeoplespan.classList.add("disabled");
+
+    {% endif %}
+
+    {% if not_estimated %}
+    const showresultsspan = document.getElementById("showresultsspan");
+    showresultsspan.setAttribute("title", "Вы не прошли все шаги оценки");
+    showresultsspan.classList.add("disabled");
+
+    {% endif %}
+    function detectMob() {
+        const toMatch = [
+            /Android/i,
+            /webOS/i,
+            /iPhone/i,
+            /iPad/i,
+            /iPod/i,
+            /BlackBerry/i,
+            /Windows Phone/i
+        ];
+
+        return toMatch.some((toMatchItem) => {
+            return navigator.userAgent.match(toMatchItem);
+        });
+    }
+    const mob = detectMob();
+    
+ 
+    var nVer = navigator.appVersion;
+    var nAgt = navigator.userAgent;
+    var browserName = navigator.appName;
+    var fullVersion = '' + parseFloat(navigator.appVersion);
+    var majorVersion = parseInt(navigator.appVersion, 10);
+    var nameOffset, verOffset, ix;
+
+    // In Opera, the true version is after "Opera" or after "Version"
+    if ((verOffset = nAgt.indexOf("Opera")) != -1) {
+        browserName = "Opera";
+        fullVersion = nAgt.substring(verOffset + 6);
+        if ((verOffset = nAgt.indexOf("Version")) != -1)
+            fullVersion = nAgt.substring(verOffset + 8);
+    }
+    // In MSIE, the true version is after "MSIE" in userAgent
+    else if ((verOffset = nAgt.indexOf("MSIE")) != -1) {
+        browserName = "Microsoft Internet Explorer";
+        fullVersion = nAgt.substring(verOffset + 5);
+    }
+    // In Chrome, the true version is after "Chrome" 
+    else if ((verOffset = nAgt.indexOf("Chrome")) != -1) {
+        browserName = "Chrome";
+        fullVersion = nAgt.substring(verOffset + 7);
+    }
+    // In Safari, the true version is after "Safari" or after "Version" 
+    else if ((verOffset = nAgt.indexOf("Safari")) != -1) {
+        browserName = "Safari";
+        fullVersion = nAgt.substring(verOffset + 7);
+        if ((verOffset = nAgt.indexOf("Version")) != -1)
+            fullVersion = nAgt.substring(verOffset + 8);
+    }
+    // In Firefox, the true version is after "Firefox" 
+    else if ((verOffset = nAgt.indexOf("Firefox")) != -1) {
+        browserName = "Firefox";
+        fullVersion = nAgt.substring(verOffset + 8);
+    }
+    // In most other browsers, "name/version" is at the end of userAgent 
+    else if ((nameOffset = nAgt.lastIndexOf(' ') + 1) <
+        (verOffset = nAgt.lastIndexOf('/'))) {
+        browserName = nAgt.substring(nameOffset, verOffset);
+        fullVersion = nAgt.substring(verOffset + 1);
+        if (browserName.toLowerCase() == browserName.toUpperCase()) {
+            browserName = navigator.appName;
+        }
+    }
+
+    var OSName="Unknown OS";
+    if (navigator.appVersion.indexOf("Win")!=-1) OSName="Windows";
+    if (navigator.appVersion.indexOf("Mac")!=-1) OSName="MacOS";
+    if (navigator.appVersion.indexOf("X11")!=-1) OSName="UNIX";
+    if (navigator.appVersion.indexOf("Linux")!=-1) OSName="Linux";
+
+    
+
+    var currentdate = new Date();
+    var datetime = currentdate.getDate() + "/"
+        + (currentdate.getMonth() + 1) + "/"
+        + currentdate.getFullYear() + " @ "
+        + currentdate.getHours() + ":"
+        + currentdate.getMinutes() + ":"
+        + currentdate.getSeconds();
+
+
+    var tz = Intl.DateTimeFormat().resolvedOptions().timeZone + "";
+
+    let saveData = new FormData();
+    saveData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+    saveData.append('page', "{{pth}}");
+    saveData.append('datetime', datetime);
+    saveData.append('width', screen.width);
+    saveData.append('height', screen.height);
+    saveData.append('browser', browserName);
+    saveData.append('os', OSName);
+    saveData.append('mob', mob);
+    saveData.append('tz', tz);
+    navigator.sendBeacon('{% url "stats" %}', saveData); 
+  </script>
+
+
+ 
+  {% block js %}
+
+
+  {% endblock %}
+
+
+
+</body>
+
+</html>
